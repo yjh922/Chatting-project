@@ -1,0 +1,100 @@
+■ system 계정으로 로그인
+create tablespace chat
+datafile '파일 경로/chat.dbf' size 5M;
+
+create user chat
+identified by 7777
+default tablespace chat
+quota unlimited on chat;
+
+grant create table, create sequence, create session to chat;
+
+■ chat 계정으로 로그인 (conn chat/7777)
+
+사용자 테이블
+
+create table member(
+   member_idx number primary key
+  , id varchar2(20) 
+  , pass varchar2(64) 
+  , name varchar2(20)
+  , nick varchar2(20) 
+  , email varchar2(50) 
+  , img varchar2(20) default 'default.png' 
+);
+
+create sequence seq_member
+increment by 1
+start with 1;
+
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'btob', '1111', '비투비', '비투', 'abc@naver.com');
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'bts', '2222', '비티에스', '방탄', 'def@naver.com');
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'exo', '3333', '엑소', '엑소', 'ghi@naver.com');
+
+
+친구 테이블
+
+create table friend(
+   friend_idx number primary key
+  , me number
+  , you number
+  , constraint fk_member_friend foreign key (me) references member(member_idx)
+  , constraint fk_member_friend foreign key (you) references member(member_idx)
+);
+create  sequence  seq_friend
+increment by 1
+start with 1;
+
+메시지 테이블
+create table message(
+   message_idx number primary key
+  , to number
+  , from number
+  , time date default sysdate
+  , contents clob
+  , readyn number default 1
+  , constraint fk_member_message foreign key (to) references member(member_idx)
+  , constraint fk_member_message foreign key (from) references member(member_idx)
+);
+create  sequence  seq_message
+increment by 1
+start with 1;
+
+채팅방
+
+create table room(
+   romm_idx number primary key
+  , roomname varchar2(20)
+);
+create  sequence  seq_room
+increment by 1
+start with 1;
+
+채팅참여
+
+create table roommate(
+   roommate_idx number primary key
+  , room_idx number
+  , member_idx number
+  , constraint fk_room_roommate foreign key (room_idx) references room(room_idx)
+  , constraint fk_member_roommate foreign key (member_idx) references member(member_idx)
+);
+create  sequence  seq_roommate
+increment  by  1
+start with 1;
+
+서랍
+create table file(
+   file-idx number primary key
+  , room_idx number
+  , filename varchar2(30)
+  , regdate date default sysdate 
+  , constraint fk_room_file foreign key (room_idx) references room(room_idx)
+);
+create  sequence  seq_file
+increment  by  1
+start with 1;
+
+
+
+
