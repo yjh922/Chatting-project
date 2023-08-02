@@ -1,6 +1,6 @@
 ■ system 계정으로 로그인
 create tablespace chat
-datafile '파일 경로/chat.dbf' size 5M;
+datafile 'C:\oraclexe\app\oracle\oradata\XE/chat.dbf' size 5M;
 
 create user chat
 identified by 7777
@@ -38,8 +38,8 @@ create table friend(
    friend_idx number primary key
   , me number
   , you number
-  , constraint fk_member_friend foreign key (me) references member(member_idx)
-  , constraint fk_member_friend foreign key (you) references member(member_idx)
+  , constraint fk_member_friend_me foreign key (me) references member(member_idx)
+  , constraint fk_member_friend_you foreign key (you) references member(member_idx)
 );
 create  sequence  seq_friend
 increment by 1
@@ -48,13 +48,13 @@ start with 1;
 메시지 테이블
 create table message(
    message_idx number primary key
-  , to number
-  , from number
+  , send number
+  , receive number
   , time date default sysdate
   , contents clob
   , readyn number default 1
-  , constraint fk_member_message foreign key (to) references member(member_idx)
-  , constraint fk_member_message foreign key (from) references member(member_idx)
+  , constraint fk_member_message_send foreign key (send) references member(member_idx)
+  , constraint fk_member_message_receive foreign key (receive) references member(member_idx)
 );
 create  sequence  seq_message
 increment by 1
@@ -63,7 +63,7 @@ start with 1;
 채팅방
 
 create table room(
-   romm_idx number primary key
+   room_idx number primary key
   , roomname varchar2(20)
 );
 create  sequence  seq_room
@@ -84,16 +84,18 @@ increment  by  1
 start with 1;
 
 서랍
-create table file(
-   file-idx number primary key
+create table filelist(
+   filelist_idx number primary key
   , room_idx number
-  , filename varchar2(30)
+  , filename varchar2(20)
   , regdate date default sysdate 
   , constraint fk_room_file foreign key (room_idx) references room(room_idx)
 );
 create  sequence  seq_file
 increment  by  1
 start with 1;
+
+commit;
 
 
 
