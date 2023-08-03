@@ -59,9 +59,8 @@ public class ChatMain extends JFrame{
 		add(p_center);
 		add(p_west, BorderLayout.WEST);
 		
-		setSize(380,600);
+		setBounds(500, 200, 380, 600); //창크기
 		setVisible(true);
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//최초로 친구목록 보여지게
