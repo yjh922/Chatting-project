@@ -47,7 +47,7 @@ public class ChatMain extends JFrame{
 		p_west.setLayout(null);
 		
 		//스타일
-		//p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		p_west.setPreferredSize(new Dimension(50,600));
 		
 		
@@ -93,7 +93,7 @@ public class ChatMain extends JFrame{
 				Image image=buffImg;
 				image=image.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 				JLabel la_icon = new JLabel(new ImageIcon(image));
-				la_icon.setBounds(0, 50+(50*i), 50, 50);
+				la_icon.setBounds(0, (50*i), 50, 50);
 				navi.add(la_icon);
 				p_west.add(la_icon);
 				
