@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,8 +21,8 @@ public class Page extends JPanel{
 	public Page() {
 		p_north = new JPanel();
 		p_center=new JPanel();
-		la_title = new JLabel("");
-		la_plus = new JLabel("");
+		la_title = new JLabel("친구");
+		la_plus = new JLabel("로그아웃");
 		
 		//스타일
 		p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
@@ -46,5 +48,12 @@ public class Page extends JPanel{
 		
 		setPreferredSize(new Dimension(330, 600));
 		setVisible(true);
+		
+		la_plus.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("클릭");
+			}
+		});
+		
 	}
 }
