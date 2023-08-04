@@ -66,11 +66,11 @@ public class ChatMain extends JFrame{
 		add(p_west, BorderLayout.WEST);
 		
 		setSize(380,600);
-		//setVisible(true);
+		setVisible(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		loginForm = new LoginForm(this);
+		//loginForm = new LoginForm(this);
 		
 		//최초로 친구목록 보여지게
 		showHide(FRIEND);

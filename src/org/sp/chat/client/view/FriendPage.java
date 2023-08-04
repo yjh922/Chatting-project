@@ -25,14 +25,17 @@ public class FriendPage extends Page{
 	ChatMain chatMain;
 	JPanel p_list; //리스트를 담을 배열
 	JScrollPane scroll;
-	
+	JLabel la_plus;
+	JLabel la_title;
 	DBManager dbManager;
 	MemberDAO memberDAO;
-	List<Member> memberList;
+	//List<Member> memberList;
 	FriendFind ff;
 	
 	public FriendPage(ChatMain chatMain) {
 		this.chatMain = chatMain;
+		la_plus =new JLabel();
+		la_title = new JLabel();
 		la_plus.setIcon(new ImageIcon(ImageUtil.getImage("friendplus.png", 35, 35)));	
 		p_list = new JPanel();
 		
@@ -45,13 +48,17 @@ public class FriendPage extends Page{
 		//memberDAO = new MemberDAO(dbManager);
 		//memberList = memberDAO.selectAll();
 		
+		/*
 		for(int i=0;i<memberList.size();i++) {
 			Member member=memberList.get(i);
 			MemberCell memberCell = new MemberCell(chatMain, member);
 			p_list.add(memberCell);
 		}
+		*/
 		
 		//부착
+		p_north.add(la_title);
+		p_north.add(la_plus);
 		p_center.setPreferredSize(new Dimension(340, 800));
 		scroll = new JScrollPane(p_center);
 		scroll.setPreferredSize(new Dimension(300,500));
