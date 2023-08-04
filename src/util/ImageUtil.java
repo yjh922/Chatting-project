@@ -10,11 +10,16 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public class ImageUtil {
-	
+
+
+
 	public static Image getImage(String filename, int width, int height) {
 		Image image=null;
 		
 		try {
+
+
+
 			BufferedImage buffImg = ImageIO.read(ClassLoader.getSystemResource("res/"+filename));
 			image = buffImg.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		} catch (IOException e) {
@@ -22,7 +27,11 @@ public class ImageUtil {
 		}
 		return image;
 	}
+
 	
+
+
+
 	public static List<Image> getImageList(String[] filename, int width, int height) {
 		ArrayList<Image> imageList=new ArrayList<Image>();
 		
@@ -38,3 +47,9 @@ public class ImageUtil {
 	}
 	
 }
+
+
+
+
+
+
