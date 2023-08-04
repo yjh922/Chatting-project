@@ -16,5 +16,4 @@ public class Room {
 	public void setRoomname(String roomname) {
 		this.roomname = roomname;
 	}
-
 }

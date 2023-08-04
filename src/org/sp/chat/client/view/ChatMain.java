@@ -17,7 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import javax.swing.text.DefaultCaret;
+
+import org.sp.chat.client.view.popup.LoginForm;
 
 import org.sp.chat.client.domain.Member;
 
@@ -34,6 +35,8 @@ public class ChatMain extends JFrame{
 	
 	
 	Page[] pages;//컨텐츠 페이지
+
+	LoginForm loginForm;
 
 	Member member;
 
@@ -62,9 +65,12 @@ public class ChatMain extends JFrame{
 		add(p_center);
 		add(p_west, BorderLayout.WEST);
 		
-		setBounds(500, 200, 380, 600); //창크기
-		setVisible(true);
+		setSize(380,600);
+		//setVisible(true);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		loginForm = new LoginForm(this);
 		
 		//최초로 친구목록 보여지게
 		showHide(FRIEND);
