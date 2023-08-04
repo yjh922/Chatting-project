@@ -17,15 +17,14 @@ public class FriendFind extends PopUp{
 	JPanel p_center;
 	JLabel la_title,la_search;
 	JTextField t_search; //텍스트
-	JButton bt_search,bt_regist; //검색 버튼
+	JButton bt_search; //검색 버튼
 	
 	public FriendFind() {
 		p_north = new JPanel();
 		p_center = new JPanel();
 		la_title = new JLabel("친구추가");
 		t_search = new JTextField("");
-		//bt_search = new JButton("찾기");
-		bt_regist = new JButton("등록");
+		bt_search = new JButton("검색");
 		
 		//스타일
 		p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2)); //북쪽
@@ -42,12 +41,11 @@ public class FriendFind extends PopUp{
 		add(p_center);
 		
 		p_center.add(t_search);
-		//p_center.add(bt_search);
-		p_center.add(bt_regist);
+		p_center.add(bt_search);
 		
 		setBounds(950, 200, 300, 380);
 		
-		bt_regist.addActionListener((e)->{
+		bt_search.addActionListener((e)->{
 			JOptionPane.showMessageDialog(null, "등록되었습니다");
 			
 		});

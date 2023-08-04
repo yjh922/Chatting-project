@@ -97,6 +97,11 @@ start with 1;
 
 commit;
 
+alter table message
+add roommate_idx number
+constraint fk_roommate_message references roommate(roommate_idx);
+
+commit;
 
 
 
