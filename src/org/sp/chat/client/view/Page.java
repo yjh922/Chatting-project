@@ -39,8 +39,8 @@ public class Page extends JPanel{
 		la_title.setFont(f);
 		la_plus.setFont(f);
 		
-		la_title.setHorizontalAlignment(JLabel.LEFT);
-		la_plus.setHorizontalAlignment(JLabel.RIGHT);
+		//la_title.setHorizontalAlignment(JLabel.LEFT);
+		//la_plus.setHorizontalAlignment(JLabel.RIGHT);
 		
 		//조립
 		p_north.add(la_title);
