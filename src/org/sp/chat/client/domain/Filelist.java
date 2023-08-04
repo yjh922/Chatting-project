@@ -1,6 +1,6 @@
 package org.sp.chat.client.domain;
 
-public class Filelist {
+public class FileList {
 	private int file_idx;
 	private Room room;
 	private String filename;
