@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
+import org.sp.chat.client.domain.Member;
+
 public class ChatMain extends JFrame{
 	JPanel p_center;//각 컨텐츠 페이지들이 들어올 빈 영역
 	JPanel p_west;//내비가 들어올 영역
@@ -32,16 +34,16 @@ public class ChatMain extends JFrame{
 	
 	
 	Page[] pages;//컨텐츠 페이지
-	
-	//Member member;
-	
+
+	Member member;
+
 	public ChatMain() {
 		p_center = new JPanel();
 		p_west = new JPanel();
 		pages = new Page[3];
 		
 		//페이지 생성
-		pages[FRIEND] = new FriendPage();
+		pages[FRIEND] = new FriendPage(this);
 		pages[CHATTING] = new ChattingPage();
 		pages[MYPAGE] = new MyPage();
 		
@@ -60,9 +62,8 @@ public class ChatMain extends JFrame{
 		add(p_center);
 		add(p_west, BorderLayout.WEST);
 		
-		setSize(380,600);
+		setBounds(500, 200, 380, 600); //창크기
 		setVisible(true);
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//최초로 친구목록 보여지게

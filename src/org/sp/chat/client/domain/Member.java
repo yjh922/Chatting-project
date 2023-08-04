@@ -51,4 +51,5 @@ public class Member {
 	public void setImg(String img) {
 		this.img = img;
 	}
+
 }

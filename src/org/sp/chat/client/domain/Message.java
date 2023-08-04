@@ -8,6 +8,7 @@ public class Message {
 	private String contents;
 	private int readyn;
 	private Roommate roommate;
+
 	public int getMessage_idx() {
 		return message_idx;
 	}
@@ -50,6 +51,5 @@ public class Message {
 	public void setRoommate(Roommate roommate) {
 		this.roommate = roommate;
 	}
-	
-	
+
 }
