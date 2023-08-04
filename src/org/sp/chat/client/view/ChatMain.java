@@ -20,6 +20,8 @@ import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.view.popup.LoginForm;
 
+import org.sp.chat.client.domain.Member;
+
 public class ChatMain extends JFrame{
 	JPanel p_center;//각 컨텐츠 페이지들이 들어올 빈 영역
 	JPanel p_west;//내비가 들어올 영역
@@ -33,9 +35,10 @@ public class ChatMain extends JFrame{
 	
 	
 	Page[] pages;//컨텐츠 페이지
-	
+
 	LoginForm loginForm;
-	
+
+	Member member;
 
 	public ChatMain() {
 		p_center = new JPanel();
@@ -43,7 +46,7 @@ public class ChatMain extends JFrame{
 		pages = new Page[3];
 		
 		//페이지 생성
-		pages[FRIEND] = new FriendPage();
+		pages[FRIEND] = new FriendPage(this);
 		pages[CHATTING] = new ChattingPage();
 		pages[MYPAGE] = new MyPage();
 		

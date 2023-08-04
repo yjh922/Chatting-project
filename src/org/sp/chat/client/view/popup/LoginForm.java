@@ -12,7 +12,7 @@ import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
 
-public class LoginForm extends Popup {
+public class LoginForm extends PopUp {
 	ChatMain chatMain;
 	JTextField t_id;
 	JPasswordField t_pass;
