@@ -1,5 +1,7 @@
 package org.sp.chat.client.domain;
 
+//이 클래스는 member 테이블의 1:1 대응되는 DTO 목적으로 정의
+//로직이 아닌 오직 데이터를 담기 위한 객체
 public class Member {
 	private int member_idx;
 	private String id;
@@ -51,6 +53,4 @@ public class Member {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	
-	
 }
