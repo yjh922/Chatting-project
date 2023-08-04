@@ -57,11 +57,15 @@ public class FriendPage extends Page{
 		*/
 		
 		//부착
+
+		p_center.setPreferredSize(new Dimension(100, 800));
+
 		p_north.add(la_title);
 		p_north.add(la_plus);
 		p_center.setPreferredSize(new Dimension(340, 800));
+
 		scroll = new JScrollPane(p_center);
-		scroll.setPreferredSize(new Dimension(300,500));
+		scroll.setPreferredSize(new Dimension(100,500));
 		p_center.add(p_list);
 		add(scroll);
 		
