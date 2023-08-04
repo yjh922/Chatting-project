@@ -102,9 +102,9 @@ public class ClientMessageThread extends Thread{
 		t_msg.setEditable(false);
 		*/
 		
-		JLabel la_msg = new JLabel("<html>this is test<br>content</html>");
-		//la_msg.setText();
-		
+		JLabel la_msg = new JLabel();
+		la_msg.setText(message);
+		//"<html><br></html>"
 		JLabel la_icon = new JLabel(new ImageIcon(ImageUtil.getImage("default.png", 20, 20)));
 		
 		p_msg.add(la_icon);
