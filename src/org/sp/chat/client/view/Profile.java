@@ -12,6 +12,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,12 +26,14 @@ public class Profile extends JFrame{
 	JButton bt_cancel;
 	JButton bt_photo;
 	JTextField t_name;
+	JButton bt_regist; //등록버튼
 	String imgprofile= "res/default.png";
 	
 	public Profile() {
 		p_center = new JPanel();
 		p_south = new JPanel();
 		bt_con = new JButton("확인");
+		bt_regist =new JButton();
 		bt_cancel = new JButton("취소");
 		bt_photo=new JButton("사진찾기");
 		t_name= new JTextField(20);
@@ -46,6 +49,7 @@ public class Profile extends JFrame{
 		p_south.add(bt_cancel);
 		p_center.add(t_name);
 		p_center.add(bt_photo);
+
 		
 		p_center.setPreferredSize(new Dimension(50,600));
 	
@@ -68,10 +72,10 @@ public class Profile extends JFrame{
 				// 창 닫기
 				dispose();
 			}
-		});
-		
+		});	
 		
 	}
+	
 	
 	public void imgprofile() {
 		
@@ -90,7 +94,5 @@ public class Profile extends JFrame{
 }
 
 
-	public static void main(String[] args) {
-		new Profile();
-	}
+	
 }
