@@ -33,7 +33,8 @@ public class ChatMain extends JFrame{
 	
 	Page[] pages;//컨텐츠 페이지
 	
-
+	//Member member;
+	
 	public ChatMain() {
 		p_center = new JPanel();
 		p_west = new JPanel();

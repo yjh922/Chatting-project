@@ -2,10 +2,10 @@ package org.sp.chat.client.model;
 
 import util.DBManager;
 
-public class RoomDAO {
+public class RoommateDAO {
 	DBManager dbManager;
 	
-	public RoomDAO(DBManager dbManager) {
+	public RoommateDAO(DBManager dbManager) {
 		this.dbManager=dbManager;
 	}
 }
