@@ -1,16 +1,14 @@
 package org.sp.chat.network;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.Label;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,54 +16,68 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
+import org.sp.chat.client.domain.Room;
+import org.sp.chat.client.domain.Roommate;
+import org.sp.chat.client.model.RoommateDAO;
+import org.sp.chat.client.view.ChatMain;
+
+import util.DBManager;
 
 public class ClientMain extends JFrame{
 	JPanel p_north;
 	JPanel p_center;
 	JPanel p_south;
 	JComboBox box;
-	JTextField t_port;
+	JLabel la_name;
 	JButton bt_connect;
 	JScrollPane scroll;
-	JTextField t_input;
+	JTextArea t_input;
 	JButton bt_input;
 	JScrollPane scroll_input;
 	
 	Socket socket;
 	ClientMessageThread cmt;
+	Room room;
+	DBManager dbManager;
+	RoommateDAO roommateDAO;
+	List<Roommate> roommateList=new ArrayList<Roommate>();
 	
-	public ClientMain() {
+	public ClientMain(Room room) {
+		this.room=room;
 		p_north = new JPanel();
 		p_center = new JPanel();
 		p_south = new JPanel();
 		box = new JComboBox();
-		t_port = new JTextField("7777",6);
 		bt_connect = new JButton("접속");
+		la_name = new JLabel("채팅방");
 	
 		scroll = new JScrollPane(p_center);
-		t_input = new JTextField();
+		t_input = new JTextArea();
 		bt_input = new JButton("입력");
 		scroll_input = new JScrollPane(t_input);
 		
+		dbManager = new DBManager();
+		roommateDAO = new RoommateDAO(dbManager);
+		
 		box.addItem("192.168.0.14");
+		box.addItem("");
+		box.addItem("");
+		box.addItem("");
 
 		//스타일
 		p_north.setPreferredSize(new Dimension(380,50));
 		p_south.setPreferredSize(new Dimension(380,50));
-		p_center.setPreferredSize(new Dimension(300,500));
-		scroll.setPreferredSize(new Dimension(300,480));
-		t_input.setPreferredSize(new Dimension(230,45));
-		scroll_input.setPreferredSize(new Dimension(230,40));
-		//t_input.setLineWrap(true);
-		
+		scroll.setPreferredSize(new Dimension(300,500));
+		scroll_input.setPreferredSize(new Dimension(230,45));
+		t_input.setLineWrap(true);
+		p_center.setLayout(new BoxLayout(p_center, BoxLayout.Y_AXIS));
 		
 		//조립
+		p_north.add(la_name);
 		p_north.add(box);
-		p_north.add(t_port);
 		p_north.add(bt_connect);
 		p_south.add(scroll_input);
 		p_south.add(bt_input);
@@ -80,13 +92,14 @@ public class ClientMain extends JFrame{
 		
 		setBounds(0, 0, 380, 600);
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		
 		
 		bt_connect.addActionListener((e)->{
 			connect();
 		});
+		
 		
 		t_input.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
@@ -103,17 +116,17 @@ public class ClientMain extends JFrame{
 			send();
 			
 		});
-		
+		getRoommate();
 		
 		
 	}
 	
 	public void connect() {
 		String ip=(String)box.getSelectedItem();
-		int port=Integer.parseInt(t_port.getText());
+		//int port=Integer.parseInt(t_port.getText());
 		
 		try {
-			socket = new Socket(ip, port);
+			socket = new Socket(ip, 7777);
 			
 			cmt = new ClientMessageThread(this);
 			cmt.start();
@@ -125,16 +138,27 @@ public class ClientMain extends JFrame{
 		}
 	}
 	
+	public void getRoommate() {
+		roommateList=roommateDAO.selectChat(room.getRoom_idx());
+		System.out.println(roommateList.size()+"참여 중");
+	}
+	
 	public void send() {
-StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer();
 		
 		//개발자가 전송 프로토콜을 정의한다..
 		sb.append("{");
-		sb.append("\"send\":1,");
-		sb.append("\"receive\" :2, ");
-		sb.append("\"id\" :\"yoon\", ");
-		sb.append("\"roommate_idx\" :1,"); 
-		sb.append("\"contents\" :\""+t_input.getText()+"\" ");
+		sb.append("\"idx\":"+ChatMain.member.getMember_idx()+",");
+		sb.append("\"id\" :\""+ChatMain.member.getId()+"\", ");
+		sb.append("\"name\" :\""+ChatMain.member.getName()+"\", ");
+		sb.append("\"nick\" :\""+ChatMain.member.getNick()+"\", ");
+		sb.append("\"email\" :\""+ChatMain.member.getEmail()+"\", ");
+		sb.append("\"img\" :\""+ChatMain.member.getImg()+"\", ");
+		
+		
+		String str= t_input.getText().replace("\n", "한");
+		
+		sb.append("\"contents\" :\""+str+"\" ");
 		sb.append("}");
 	
 		System.out.println(sb.toString());
@@ -144,7 +168,8 @@ StringBuffer sb = new StringBuffer();
 		t_input.setText("");
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		new ClientMain();
 	}
+	*/
 }
