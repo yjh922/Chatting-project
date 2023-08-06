@@ -18,15 +18,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import org.sp.chat.client.domain.Member;
+import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.popup.LoginForm;
 
-import org.sp.chat.client.domain.Member;
+import util.DBManager;
 
 public class ChatMain extends JFrame{
 	JPanel p_center;//각 컨텐츠 페이지들이 들어올 빈 영역
 	JPanel p_west;//내비가 들어올 영역
 	String[] naviIcon= {"res/friend.png","res/chatting.png","res/mypage.png"};
 	ArrayList<JLabel> navi;//아이콘 이미지를 담게 될 라벨들
+	
 	
 	
 	public static final int FRIEND=0;//친구 목록
@@ -37,18 +40,19 @@ public class ChatMain extends JFrame{
 	Page[] pages;//컨텐츠 페이지
 
 	LoginForm loginForm;
-
-	Member member;
+	MemberDAO memberDAO;
+	public static Member member;
 
 	public ChatMain() {
 		p_center = new JPanel();
 		p_west = new JPanel();
 		pages = new Page[3];
+		memberDAO=new MemberDAO(new DBManager());
 		
 		//페이지 생성
 		pages[FRIEND] = new FriendPage(this);
 		pages[CHATTING] = new ChattingPage();
-		pages[MYPAGE] = new MyPage();
+		pages[MYPAGE] = new MyPage(this);
 		
 		p_west.setLayout(null);
 		
@@ -70,7 +74,9 @@ public class ChatMain extends JFrame{
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		//loginForm = new LoginForm(this);
+		loginForm = new LoginForm(this);
+		//member=memberDAO.login(member);
+		
 		
 		//최초로 친구목록 보여지게
 		showHide(FRIEND);
@@ -87,8 +93,11 @@ public class ChatMain extends JFrame{
 			});
 		}
 
-		
 	}
+	public void loginComplete() {
+		pages[MYPAGE].reView();
+	}
+	
 	
 	public void createNavi() {
 		navi=new ArrayList<JLabel>();
@@ -111,6 +120,7 @@ public class ChatMain extends JFrame{
 		}
 	}
 	
+	
 	public void showHide(int n) {//보이게하고 싶은 index만 넘겨받는다
 		for(int i=0; i<pages.length;i++) {
 			if(i==n) {//넘겨받은 매개변수와 i가 일치할때만 보이게
@@ -123,7 +133,6 @@ public class ChatMain extends JFrame{
 		}
 	}
 
-	
 	public static void main(String[] args) {
 		new ChatMain();
 	}

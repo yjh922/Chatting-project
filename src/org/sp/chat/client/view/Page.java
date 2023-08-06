@@ -40,4 +40,8 @@ public class Page extends JPanel{
 		
 
 	}
+	
+	public void reView() {
+		
+	}
 }
