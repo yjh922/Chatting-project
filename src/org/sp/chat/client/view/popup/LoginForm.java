@@ -11,6 +11,9 @@ import javax.swing.JTextField;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
+import org.sp.chat.network.GUIServer;
+
+import util.DBManager;
 
 public class LoginForm extends PopUp {
 	ChatMain chatMain;
@@ -18,9 +21,11 @@ public class LoginForm extends PopUp {
 	JPasswordField t_pass;
 	JButton bt_login;
 	JButton bt_join;
+	DBManager dbManager;
 	
 	// DAO를 이용하여 db관련 업
 	MemberDAO memberDAO;
+	Member member;
 	
 	public LoginForm(ChatMain chatMain) {
 		this.chatMain = chatMain; // 메인 프레임 넘겨받기
@@ -29,7 +34,8 @@ public class LoginForm extends PopUp {
 		t_pass = new JPasswordField();
 		bt_login = new JButton("Login");
 		bt_join = new JButton("Join");
-		memberDAO = new MemberDAO();
+		dbManager = new DBManager();
+		memberDAO = new MemberDAO(dbManager);
 		
 		// 스타일
 		Dimension d = new Dimension(340, 45);
@@ -56,7 +62,7 @@ public class LoginForm extends PopUp {
 		String id = t_id.getText();
 		String pass=  new String(t_pass.getPassword());
 		
-		Member member = new Member(); // empty
+		member = new Member(); // empty
 		member.setId(id); // 아이디 대입
 		member.setPass(pass); // 비번 대입
 		
@@ -67,10 +73,11 @@ public class LoginForm extends PopUp {
 		if(memberDTO == null) { // 로그인 실패
 			JOptionPane.showConfirmDialog(this, "로그인 정보가 올바르지 않습니다");
 		} else { // 로그인 성공
-			JOptionPane.showConfirmDialog(this, "관리자 인증 성공");
+			JOptionPane.showConfirmDialog(this, "로그인 성공");
 			
 			// 메인 프레임 보여지게..
 			chatMain.setVisible(true);
+			chatMain.setTitle(member.getId()+"로그인 중");
 			
 			this.setVisible(false);// 나는 안 보이게..
 		}
