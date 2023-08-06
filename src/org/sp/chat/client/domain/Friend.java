@@ -2,10 +2,8 @@ package org.sp.chat.client.domain;
 
 public class Friend {
 	private int friend_idx;
-
 	private Member me;
 	private Member you;
-	private Member member;
 	
 
 	public int getFriend_idx() {
@@ -29,11 +27,5 @@ public class Friend {
 	}
 	
 
-	public Member getMember() {
-		return member;
-	}
-	public void setMember(Member member) {
-		this.member = member;
-	}
 
 }

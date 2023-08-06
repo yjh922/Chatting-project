@@ -45,7 +45,7 @@ public class FriendPage extends Page{
 		p_list.setLayout(new BoxLayout(p_list, BoxLayout.Y_AXIS));
 
 		dbManager = new DBManager();
-		//memberDAO = new MemberDAO(dbManager);
+		memberDAO = new MemberDAO(dbManager);
 		//memberList = memberDAO.selectAll();
 		
 		/*
