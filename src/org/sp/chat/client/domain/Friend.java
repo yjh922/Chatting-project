@@ -5,16 +5,14 @@ public class Friend {
 
 	private Member me;
 	private Member you;
-	private Member member;
+	private Member member; //필요없슴 
 	
-
 	public int getFriend_idx() {
 		return friend_idx;
 	}
 	public void setFriend_idx(int friend_idx) {
 		this.friend_idx = friend_idx;
 	}
-
 	public Member getMe() {
 		return me;
 	}
@@ -27,8 +25,6 @@ public class Friend {
 	public void setYou(Member you) {
 		this.you = you;
 	}
-	
-
 	public Member getMember() {
 		return member;
 	}

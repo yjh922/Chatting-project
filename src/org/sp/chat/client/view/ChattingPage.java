@@ -10,8 +10,6 @@ import org.sp.chat.client.view.popup.PopUp;
 public class ChattingPage extends Page{
 	
 	public ChattingPage() {
-	
-		
 
 	}
 }

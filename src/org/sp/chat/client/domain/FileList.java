@@ -24,5 +24,4 @@ public class FileList {
 		this.filename = filename;
 	}
 	
-	
 }

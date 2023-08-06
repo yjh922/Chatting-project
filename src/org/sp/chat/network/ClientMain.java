@@ -70,9 +70,6 @@ public class ClientMain extends JFrame{
 		p_south.add(scroll_input);
 		p_south.add(bt_input);
 		
-		
-		
-	
 		add(p_north, BorderLayout.NORTH);
 		add(scroll);
 		
@@ -81,7 +78,6 @@ public class ClientMain extends JFrame{
 		setBounds(0, 0, 380, 600);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
 		
 		
 		bt_connect.addActionListener((e)->{
@@ -94,7 +90,6 @@ public class ClientMain extends JFrame{
 				if(key == KeyEvent.VK_ENTER) {//엔터치면..
 					//서버에 메시지 전송
 					send();
-				
 					
 				}
 			}
@@ -103,7 +98,6 @@ public class ClientMain extends JFrame{
 			send();
 			
 		});
-		
 		
 		
 	}
