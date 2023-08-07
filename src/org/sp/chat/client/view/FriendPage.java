@@ -31,6 +31,7 @@ public class FriendPage extends Page{
 	JScrollPane scroll;
 	DBManager dbManager;
 	FriendDAO friendDAO;
+	MemberDAO memberDAO;
 	List<Member> friendList;
 	FriendFind ff;
 	
@@ -46,7 +47,12 @@ public class FriendPage extends Page{
 		p_list.setLayout(new BoxLayout(p_list, BoxLayout.Y_AXIS));
 
 		dbManager = new DBManager();
+
 		friendDAO = new FriendDAO(dbManager);
+
+		memberDAO = new MemberDAO(dbManager);
+		//memberList = memberDAO.selectAll();
+
 		
 		p_north.setLayout(null);
 		la_title.setBounds(15, 3, 40, 40);

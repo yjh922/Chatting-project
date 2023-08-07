@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
+
 import org.sp.chat.client.view.FriendPage;
 
 import util.DBManager;
@@ -81,12 +82,17 @@ public class LoginForm extends PopUp {
 			// 메인 프레임 보여지게..
 			chatMain.setVisible(true);
 			chatMain.setTitle(member.getId()+"로그인 중");
+
 			
 			FriendPage friendPage=(FriendPage)chatMain.pages[ChatMain.FRIEND];
 			friendPage.showFriendList();
 			
+
 			this.setVisible(false);// 나는 안 보이게..
+			
 		}
 	
 	}
+	
+	
 }

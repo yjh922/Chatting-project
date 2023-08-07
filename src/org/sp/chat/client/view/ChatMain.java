@@ -19,7 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.domain.Member;
+
 import org.sp.chat.client.model.FriendDAO;
+
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.popup.LoginForm;
 
@@ -41,6 +43,7 @@ public class ChatMain extends JFrame{
 	MemberDAO memberDAO;
 	FriendDAO friendDAO;
 	
+
 	public static Member member;
 
 	public ChatMain() {
@@ -48,11 +51,14 @@ public class ChatMain extends JFrame{
 		p_west = new JPanel();
 		pages = new Page[3];
 		memberDAO=new MemberDAO(new DBManager());
+
 		friendDAO=new FriendDAO(new DBManager());
+
+
 		
 		//페이지 생성
 		pages[FRIEND] = new FriendPage(this);
-		pages[CHATTING] = new ChattingPage();
+		pages[CHATTING] = new ChattingPage(this);
 		pages[MYPAGE] = new MyPage();
 		
 		p_west.setLayout(null);
@@ -75,8 +81,10 @@ public class ChatMain extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		loginForm = new LoginForm(this);
-		//member=memberDAO.login(member);
-		
+
+
+
+
 		//최초로 친구목록 보여지게
 		showHide(FRIEND);
 		
