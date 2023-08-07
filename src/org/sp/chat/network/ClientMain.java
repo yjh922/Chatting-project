@@ -129,6 +129,34 @@ public class ClientMain extends JFrame{
 			cmt = new ClientMessageThread(this);
 			cmt.start();
 			
+			//룸메이트 정보 가져오기 
+			List<Roommate> roommateList=roommateDAO.selectChat(room.getRoom_idx());
+			
+			//접속과 동시에, 대화용 데이터가 아닌, 접속자 정보에 대한 데이터 전송 
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("{");
+			sb.append("\"requestType\" : \"login\",");
+			sb.append("\"me\": "+ChatMain.member.getMember_idx()+", ");
+			sb.append("\"roommdate\":[");
+			
+			for(int i=0;i<roommateList.size();i++) {
+				Roommate roommate=roommateList.get(i);
+				
+				sb.append("{");
+				sb.append("\"member_idx\":"+roommate.getMember().getMember_idx());
+	
+				if(i < roommateList.size()-1) {
+					sb.append("},");					
+				}else {
+					sb.append("}");					
+				}
+			}
+			sb.append("]");
+			sb.append("}");			
+			
+			cmt.sendMsg(sb.toString());
+			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

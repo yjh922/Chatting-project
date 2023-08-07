@@ -15,9 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import org.sp.chat.client.domain.Roommate;
-import org.sp.chat.client.model.RoommateDAO;
-import org.sp.chat.client.view.ChatMain;
+import org.sp.chat.client.model.MemberDAO;
+
+import util.DBManager;
 
 public class GUIServer extends JFrame{
 	JPanel p_north;
@@ -31,9 +31,8 @@ public class GUIServer extends JFrame{
 	Vector<ServerMessageThread> vec;
 	List userIdx=new ArrayList();
 	
-
-	
-
+	DBManager dbManager;
+	MemberDAO memberDAO;
 	
 	public GUIServer() {
 		p_north = new JPanel();
@@ -42,6 +41,8 @@ public class GUIServer extends JFrame{
 		area = new JTextArea();
 		scroll = new JScrollPane(area);
 		vec = new Vector<ServerMessageThread>();
+		dbManager = new DBManager();
+		memberDAO = new MemberDAO(dbManager);
 		
 		p_north.setPreferredSize(new Dimension(380,50));
 		

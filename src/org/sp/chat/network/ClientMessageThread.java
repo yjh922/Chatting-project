@@ -1,37 +1,30 @@
 package org.sp.chat.network;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.Calendar;
+import java.util.Vector;
 
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.sp.chat.client.domain.Message;
-import org.sp.chat.client.domain.Roommate;
+import org.sp.chat.client.domain.Member;
+import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
 
 import util.ImageUtil;
 
 public class ClientMessageThread extends Thread{
 	private static final float LEFT_ALIGNMENT = 0;
-	ClientMain clientServerMain;
+	ClientMain clientMain;
 	Socket socket;
 	BufferedReader buffr;// 문자기반의 버퍼처리된 입력스트림
 	BufferedWriter buffw;// 문자기반의 버퍼처리된 출력스트림
@@ -39,11 +32,10 @@ public class ClientMessageThread extends Thread{
 	String message;
 	String id;
 	String img;
-
 	
-	public ClientMessageThread(ClientMain clientServerMain) {
-		this.clientServerMain=clientServerMain;
-		this.socket=clientServerMain.socket;
+	public ClientMessageThread(ClientMain clientMain) {
+		this.clientMain=clientMain;
+		this.socket=clientMain.socket;
 		
 		try {
 			buffr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -59,19 +51,7 @@ public class ClientMessageThread extends Thread{
 		
 		try {
 			msg=buffr.readLine();
-			
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObject=(JSONObject)jsonParser.parse(msg);
-			
-			id= (String)jsonObject.get("id");
-			String name=(String)jsonObject.get("name");
-			img = (String)jsonObject.get("img");
-			String contents= (String)jsonObject.get("contents");
-			
-			
-			//클라이언트 채팅창 메시지 보내기
-			message=name+"님:"+contents;
-			inputMsg();
+			//로그출력 
 			
 
 		} catch (IOException e) {
@@ -81,6 +61,7 @@ public class ClientMessageThread extends Thread{
 		}
 		
 	}
+	
 	
 	public void sendMsg(String msg) {
 		try {

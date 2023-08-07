@@ -47,7 +47,7 @@ public class ChatMain extends JFrame{
 	FriendDAO friendDAO;
 	
 
-	public static Member member;
+	public static Member member; //현재 로그인한 사람 
 
 	public ChatMain() {
 		p_center = new JPanel();
