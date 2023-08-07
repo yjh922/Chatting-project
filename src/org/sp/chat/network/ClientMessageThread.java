@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -17,7 +16,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.sp.chat.client.domain.Member;
-import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
 
 import util.ImageUtil;
@@ -29,9 +27,9 @@ public class ClientMessageThread extends Thread{
 	BufferedReader buffr;// 문자기반의 버퍼처리된 입력스트림
 	BufferedWriter buffw;// 문자기반의 버퍼처리된 출력스트림
 	boolean flag = true;// 이 쓰레드를 죽일지 말지 결정하는 놀리값
-	String message;
-	String id;
-	String img;
+
+	Member member;
+
 	
 	public ClientMessageThread(ClientMain clientMain) {
 		this.clientMain=clientMain;
@@ -51,7 +49,16 @@ public class ClientMessageThread extends Thread{
 		
 		try {
 			msg=buffr.readLine();
-			//로그출력 
+			
+			JSONParser jsonParser = new JSONParser();
+			JSONObject json=(JSONObject)jsonParser.parse(msg);
+				
+			long sender=(Long)json.get("sender");
+			String data=(String)json.get("data");
+			
+			//클라이언트 채팅창 메시지 보내기
+			member=clientMain.memberDAO.select((int)sender);
+			inputMsg(member.getName()+"님:"+data);
 			
 
 		} catch (IOException e) {
@@ -61,7 +68,6 @@ public class ClientMessageThread extends Thread{
 		}
 		
 	}
-	
 	
 	public void sendMsg(String msg) {
 		try {
@@ -78,7 +84,7 @@ public class ClientMessageThread extends Thread{
 		}
 	}
 	
-	public void inputMsg() {
+	public void inputMsg(String message) {
 		JPanel p_msg = new JPanel();
 		//p_msg.setLayout(null);
 		
@@ -89,31 +95,15 @@ public class ClientMessageThread extends Thread{
 		t_msg.setColumns(30);
 		t_msg.setBorder(null);
 		t_msg.setEditable(false);
-		
-		
-		
-		
-		//JLabel la_msg = new JLabel();
-		//la_msg.setText(message);
-		//"<html><br></html>"
-		JLabel la_icon = new JLabel(new ImageIcon(ImageUtil.getImage(img, 20, 20)));
-		
-		//la_icon.setLocation(0,0);
-		//t_msg.setLocation(30, 0);
+
+		JLabel la_icon = new JLabel(new ImageIcon(ImageUtil.getImage(member.getImg(), 20, 20)));
+	
 		
 		p_msg.add(la_icon);
 		p_msg.add(t_msg);
 		
-		if(id==ChatMain.member.getId()) {
-			p_msg.remove(la_icon);
-		}
-		
-		
-		
-		
-		clientServerMain.p_center.add(p_msg);
-	
-		clientServerMain.p_center.updateUI();
+		clientMain.p_center.add(p_msg);
+		clientMain.p_center.updateUI();
 		
 	}
 	

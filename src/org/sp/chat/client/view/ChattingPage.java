@@ -50,7 +50,7 @@ public class ChattingPage extends Page{
 		scroll = new JScrollPane(p_center);
 		
 		roomDAO = new RoomDAO(dbManager);
-		roomList =roomDAO.selectAll();//채팅목록 
+		
 		
 		//스타일
 		p_list.setLayout(new BoxLayout(p_list, BoxLayout.Y_AXIS));
@@ -61,11 +61,7 @@ public class ChattingPage extends Page{
 		scroll.setPreferredSize(new Dimension(330,450));
 		
 		//부착
-		for(int i=0; i<roomList.size();i++) {
-			Room room=roomList.get(i);
-			ChattingCell chattingCell = new ChattingCell(chatMain, room);
-			p_list.add(chattingCell);
-		}
+		
 		
 		p_north.add(la_title);
 		p_north.add(la_chat);
@@ -79,5 +75,17 @@ public class ChattingPage extends Page{
 				chattingRoom = new ChattingRoom(ChattingPage.this);
 			}
 		});
+	}
+	
+	public void showRoomList() {
+		p_list.removeAll();
+		
+		roomList =roomDAO.selectAll();//채팅목록 
+		for(int i=0; i<roomList.size();i++) {
+			Room room=roomList.get(i);
+			ChattingCell chattingCell = new ChattingCell(chatMain, room);
+			p_list.add(chattingCell);
+		}
+		p_list.updateUI();
 	}
 }

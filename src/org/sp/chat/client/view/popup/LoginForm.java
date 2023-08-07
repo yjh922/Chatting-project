@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
-
+import org.sp.chat.client.view.ChattingPage;
 import org.sp.chat.client.view.FriendPage;
 
 import util.DBManager;
@@ -88,6 +88,8 @@ public class LoginForm extends PopUp {
 			
 			FriendPage friendPage=(FriendPage)chatMain.pages[ChatMain.FRIEND];
 			friendPage.showFriendList();
+			ChattingPage chattingPage=(ChattingPage)chatMain.pages[ChatMain.CHATTING];
+			chattingPage.showRoomList();
 			chatMain.loginComplete();
 
 			this.setVisible(false);// 나는 안 보이게..

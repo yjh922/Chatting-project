@@ -1,7 +1,6 @@
 package org.sp.chat.network;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -22,6 +21,7 @@ import javax.swing.JTextArea;
 
 import org.sp.chat.client.domain.Room;
 import org.sp.chat.client.domain.Roommate;
+import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.model.RoommateDAO;
 import org.sp.chat.client.view.ChatMain;
 
@@ -43,6 +43,7 @@ public class ClientMain extends JFrame{
 	ClientMessageThread cmt;
 	Room room;
 	DBManager dbManager;
+	MemberDAO memberDAO;
 	RoommateDAO roommateDAO;
 	Roommate roommate;
 	List<Roommate> roommateList=new ArrayList<Roommate>();
@@ -63,6 +64,7 @@ public class ClientMain extends JFrame{
 		
 		dbManager = new DBManager();
 		roommateDAO = new RoommateDAO(dbManager);
+		memberDAO = new MemberDAO(dbManager);
 		
 		box.addItem("192.168.1.37");
 		box.addItem("192.168.0.14");
@@ -171,39 +173,16 @@ public class ClientMain extends JFrame{
 	
 	
 	public void send() {
-		StringBuffer sb = new StringBuffer();
-		
-		//개발자가 전송 프로토콜을 정의한다..
-		sb.append("{");
-		sb.append("\"idx\":"+ChatMain.member.getMember_idx()+",");
-		sb.append("\"id\" :\""+ChatMain.member.getId()+"\", ");
-		sb.append("\"name\" :\""+ChatMain.member.getName()+"\", ");
-		sb.append("\"nick\" :\""+ChatMain.member.getNick()+"\", ");
-		sb.append("\"email\" :\""+ChatMain.member.getEmail()+"\", ");
-		sb.append("\"img\" :\""+ChatMain.member.getImg()+"\", ");
-		sb.append("\"friends\":[");
-		
-		for(int i=0;i<roommateList.size();i++) {   // 3-1보다 작을때까지  쉼표..
-			Roommate roommate =roommateList.get(i);
-			
-			sb.append("{");
-			sb.append("\"member_idx\":"+roommate.getMember().getMember_idx()+",");
-			sb.append("\"room_idx\":"+roommate.getRoom().getRoom_idx()+",");
-			//sb.append("\"name\":\"zino\"");
-			if(i<(roommateList.size()-1)) {
-				sb.append("},");
-			}else {
-				sb.append("}");
-			}
-		}
-		sb.append("],");
-		
+
 		String str= t_input.getText().replace("\n", "");
 		
-		sb.append("\"contents\" :\""+str+"\" ");
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append("\"requestType\" : \"message\",");
+		sb.append("\"me\": "+ChatMain.member.getMember_idx()+", ");
+		sb.append("\"data\": \""+str+"\"");
 		sb.append("}");
-	
-		System.out.println(sb.toString());
+		
 		
 		cmt.sendMsg(sb.toString());
 		

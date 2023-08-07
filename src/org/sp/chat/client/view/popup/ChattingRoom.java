@@ -68,7 +68,7 @@ public class ChattingRoom extends PopUp{
 		roommateDAO = new RoommateDAO(dbManager);
 		
 		//스타일
-		p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		p_north.setPreferredSize(new Dimension(330, 50));
 		
 		scroll.setPreferredSize(new Dimension(380,500));
@@ -106,6 +106,7 @@ public class ChattingRoom extends PopUp{
 				roomName=JOptionPane.showInputDialog(ChattingRoom.this, "방이름을 입력하세요");
 				if(roomName!=null) {
 					createRoom();
+					chattingPage.showRoomList();
 					ChattingRoom.this.setVisible(false);
 				}else if(roomName==""){
 					JOptionPane.showMessageDialog(ChattingRoom.this, "방이름을 입력해 주세요");

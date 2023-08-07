@@ -67,13 +67,11 @@ public class GUIServer extends JFrame{
 			bt_server.setEnabled(false);//버튼을 중복해서 못누르게 처리
 			area.setText("서버가 가동되었습니다.\n");
 		});
-		
-		
+
 	}
 	
 	public void serverListen() {
-		
-		
+
 		try {
 			server = new ServerSocket(7777);
 			
@@ -84,9 +82,7 @@ public class GUIServer extends JFrame{
 				smt.start();
 				
 				vec.add(smt);
-				//userIdx.add(ChatMain.member.getMember_idx());
-				
-				
+
 				area.append("현재 접속자" +vec.size()+"명\n");
 				
 			}

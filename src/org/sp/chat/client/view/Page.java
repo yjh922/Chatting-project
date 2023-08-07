@@ -27,7 +27,7 @@ public class Page extends JPanel{
 
 		//스타일
 		p_north.setPreferredSize(new Dimension(330,50));		
-		p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 
 		//조립	
 		setLayout(new BorderLayout());

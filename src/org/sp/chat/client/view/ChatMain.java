@@ -19,10 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.domain.Member;
-
-
 import org.sp.chat.client.model.FriendDAO;
-
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.popup.LoginForm;
 
@@ -42,6 +39,7 @@ public class ChatMain extends JFrame{
 	public Page[] pages;//컨텐츠 페이지
 
 	LoginForm loginForm;
+	DBManager dbManager;
 	MemberDAO memberDAO;
 
 	FriendDAO friendDAO;
@@ -53,7 +51,7 @@ public class ChatMain extends JFrame{
 		p_center = new JPanel();
 		p_west = new JPanel();
 		pages = new Page[3];
-		memberDAO=new MemberDAO(new DBManager());
+		memberDAO=new MemberDAO(dbManager = new DBManager());
 
 		
 		//페이지 생성
@@ -67,7 +65,7 @@ public class ChatMain extends JFrame{
 		p_west.setLayout(null);
 		
 		//스타일
-		p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		p_west.setPreferredSize(new Dimension(50,600));
 		
 		//조립

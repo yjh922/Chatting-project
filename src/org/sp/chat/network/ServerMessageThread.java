@@ -17,6 +17,7 @@ import org.json.simple.parser.ParseException;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.domain.Roommate;
 import org.sp.chat.client.model.RoommateDAO;
+import org.sp.chat.client.view.ChatMain;
 import org.sp.chat.client.view.ChattingPage;
 
 public class ServerMessageThread extends Thread{
@@ -77,18 +78,21 @@ public class ServerMessageThread extends Thread{
 	//1)접속한 회원의 정보를 보관 
 	//2)접속한 회원의 룸메이트 정보를 이용하여 브로드케스팅 명단 만드릭 
 	public void getInfo(JSONObject obj) {
-		int me=(Integer)obj.get("me");
+		long me=(Long)obj.get("me");
 		
-		member = guiServer.memberDAO.select(me);
+		member = guiServer.memberDAO.select((int)me);
 
 		roommateList.removeAll(roommateList); //컬렉션 비우기
 		
 		JSONArray jsonArray=(JSONArray)obj.get("roommdate");
 		for(int i=0; i<jsonArray.size();i++) {
 			JSONObject json=(JSONObject)jsonArray.get(i);
-			mateList.add((Integer)json.get("member_idx"));
+			long member_idx=(Long)json.get("member_idx");
+			mateList.add((int)member_idx);
 		}
+		System.out.println("제 친구는 "+mateList.size()+"입니다");
 	}
+	
 	
 	public void broadCast(JSONObject obj) {
 		String data = (String)obj.get("data");
@@ -98,8 +102,16 @@ public class ServerMessageThread extends Thread{
 			ServerMessageThread smt =guiServer.vec.get(i);
 			for(int a=0;a<mateList.size();a++) {
 				int member_idx=mateList.get(a);
-				if(member_idx == smt.member.getMember_idx()) { //메시지 전송대상 
-					smt.sendMsg(data);
+				if(member_idx == smt.member.getMember_idx()) { //메시지 전송대상
+					
+					StringBuilder sb = new StringBuilder();
+					sb.append("{");
+					sb.append("\"requestType\" : \"message\",");
+					sb.append("\"sender\": "+member.getMember_idx()+", ");
+					sb.append("\"data\": \""+data+"\"");
+					sb.append("}");
+					
+					smt.sendMsg(sb.toString());
 				}
 			}
 		}
