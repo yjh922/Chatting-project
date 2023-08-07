@@ -20,6 +20,7 @@ import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.domain.Member;
 
+
 import org.sp.chat.client.model.FriendDAO;
 
 import org.sp.chat.client.model.MemberDAO;
@@ -33,6 +34,7 @@ public class ChatMain extends JFrame{
 	String[] naviIcon= {"res/friend.png","res/chatting.png","res/mypage.png"};
 	ArrayList<JLabel> navi;//아이콘 이미지를 담게 될 라벨들
 	
+
 	public static final int FRIEND=0;//친구 목록
 	public static final int CHATTING=1;//채팅 목록
 	public static final int MYPAGE=2;//마이 페이지
@@ -41,6 +43,7 @@ public class ChatMain extends JFrame{
 
 	LoginForm loginForm;
 	MemberDAO memberDAO;
+
 	FriendDAO friendDAO;
 	
 
@@ -52,14 +55,14 @@ public class ChatMain extends JFrame{
 		pages = new Page[3];
 		memberDAO=new MemberDAO(new DBManager());
 
-		friendDAO=new FriendDAO(new DBManager());
-
-
 		
 		//페이지 생성
 		pages[FRIEND] = new FriendPage(this);
 		pages[CHATTING] = new ChattingPage(this);
-		pages[MYPAGE] = new MyPage();
+		pages[MYPAGE] = new MyPage(this);
+
+
+		friendDAO=new FriendDAO(new DBManager());
 		
 		p_west.setLayout(null);
 		
@@ -83,8 +86,6 @@ public class ChatMain extends JFrame{
 		loginForm = new LoginForm(this);
 
 
-
-
 		//최초로 친구목록 보여지게
 		showHide(FRIEND);
 		
@@ -101,6 +102,10 @@ public class ChatMain extends JFrame{
 		}
 
 	}
+	public void loginComplete() {
+		pages[MYPAGE].reView();
+	}
+	
 	
 	public void createNavi() {
 		navi=new ArrayList<JLabel>();
@@ -122,6 +127,7 @@ public class ChatMain extends JFrame{
 			}
 		}
 	}
+	
 	
 	public void showHide(int n) {//보이게하고 싶은 index만 넘겨받는다
 		for(int i=0; i<pages.length;i++) {
