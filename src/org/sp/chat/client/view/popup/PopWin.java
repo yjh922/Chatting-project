@@ -24,8 +24,9 @@ public class PopWin extends JFrame{
 		
 		add(p_center);
 		
-		pack();
+		//pack();
 		
+		setSize(380, 600);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

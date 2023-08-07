@@ -4,9 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class HashConverter {
-	
-	public HashConverter(String password) {
+public class HashConverter {	
+	public String HashConverter(String password) {
 		//String password = "minzino";
 		
 		/*
@@ -39,5 +38,6 @@ public class HashConverter {
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
+		return str.toString();
 	}
 }

@@ -27,8 +27,8 @@ public class MailSender {
 
 		Session session = Session.getDefaultInstance(props, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-	               return new PasswordAuthentication(user, password);
-	            }
+               return new PasswordAuthentication(user, password);
+            }
 		});
 		
 		try {
