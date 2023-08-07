@@ -58,7 +58,6 @@ public class ServerMessageThread extends Thread{
 			}
 			
 			
-			
 			for(int i=0;i<guiServer.vec.size();i++) {
 				ServerMessageThread smt=guiServer.vec.get(i);
 				smt.sendMsg(msg);//클라이언트에 보내기
