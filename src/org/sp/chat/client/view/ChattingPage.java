@@ -27,7 +27,7 @@ import util.ImageUtil;
 public class ChattingPage extends Page{
 	ChatMain chatMain;
 	DBManager dbManager;
-	
+
 	public JPanel p_list;
 	JLabel la_title;
 	JLabel la_chat;
@@ -91,6 +91,7 @@ public class ChattingPage extends Page{
 				
 			}
 		});
+
 
 	}
 	

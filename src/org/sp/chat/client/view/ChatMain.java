@@ -19,6 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.domain.Member;
+
+import org.sp.chat.client.model.FriendDAO;
+
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.popup.LoginForm;
 
@@ -30,17 +33,17 @@ public class ChatMain extends JFrame{
 	String[] naviIcon= {"res/friend.png","res/chatting.png","res/mypage.png"};
 	ArrayList<JLabel> navi;//아이콘 이미지를 담게 될 라벨들
 	
-	
-	
 	public static final int FRIEND=0;//친구 목록
 	public static final int CHATTING=1;//채팅 목록
 	public static final int MYPAGE=2;//마이 페이지
 	
-	
-	Page[] pages;//컨텐츠 페이지
+	public Page[] pages;//컨텐츠 페이지
 
 	LoginForm loginForm;
 	MemberDAO memberDAO;
+	FriendDAO friendDAO;
+	
+
 	public static Member member;
 
 	public ChatMain() {
@@ -48,7 +51,9 @@ public class ChatMain extends JFrame{
 		p_west = new JPanel();
 		pages = new Page[3];
 		memberDAO=new MemberDAO(new DBManager());
-		
+
+		friendDAO=new FriendDAO(new DBManager());
+
 
 		
 		//페이지 생성
@@ -61,7 +66,6 @@ public class ChatMain extends JFrame{
 		//스타일
 		p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		p_west.setPreferredSize(new Dimension(50,600));
-		
 		
 		//조립
 		for(int i=0; i<pages.length; i++) {
@@ -78,6 +82,9 @@ public class ChatMain extends JFrame{
 		
 		loginForm = new LoginForm(this);
 
+
+
+
 		//최초로 친구목록 보여지게
 		showHide(FRIEND);
 		
@@ -93,7 +100,6 @@ public class ChatMain extends JFrame{
 			});
 		}
 
-		
 	}
 	
 	public void createNavi() {
@@ -121,15 +127,12 @@ public class ChatMain extends JFrame{
 		for(int i=0; i<pages.length;i++) {
 			if(i==n) {//넘겨받은 매개변수와 i가 일치할때만 보이게
 				pages[i].setVisible(true);//보이게 처리
-				
 			}else {
 				pages[i].setVisible(false);//안보이게 처리
-				
 			}
 		}
 	}
 
-	
 	public static void main(String[] args) {
 		new ChatMain();
 	}
