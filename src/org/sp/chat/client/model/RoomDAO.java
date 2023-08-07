@@ -1,5 +1,11 @@
 package org.sp.chat.client.model;
 
-public class RoomDAO {
+import util.DBManager;
 
+public class RoomDAO {
+	DBManager dbManager;
+
+	public RoomDAO(DBManager dbManager) {
+		this.dbManager=dbManager;
+	}
 }

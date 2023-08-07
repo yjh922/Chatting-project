@@ -17,7 +17,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import javax.swing.text.DefaultCaret;
+
+import org.sp.chat.client.domain.Member;
+import org.sp.chat.client.model.FriendDAO;
+import org.sp.chat.client.model.MemberDAO;
+import org.sp.chat.client.view.popup.LoginForm;
+
+import util.DBManager;
 
 public class ChatMain extends JFrame{
 	JPanel p_center;//각 컨텐츠 페이지들이 들어올 빈 영역
@@ -25,22 +31,27 @@ public class ChatMain extends JFrame{
 	String[] naviIcon= {"res/friend.png","res/chatting.png","res/mypage.png"};
 	ArrayList<JLabel> navi;//아이콘 이미지를 담게 될 라벨들
 	
-	
 	public static final int FRIEND=0;//친구 목록
 	public static final int CHATTING=1;//채팅 목록
 	public static final int MYPAGE=2;//마이 페이지
 	
+	public Page[] pages;//컨텐츠 페이지
+
+	LoginForm loginForm;
+	MemberDAO memberDAO;
+	FriendDAO friendDAO;
 	
-	Page[] pages;//컨텐츠 페이지
-	
+	public static Member member;
 
 	public ChatMain() {
 		p_center = new JPanel();
 		p_west = new JPanel();
 		pages = new Page[3];
+		memberDAO=new MemberDAO(new DBManager());
+		friendDAO=new FriendDAO(new DBManager());
 		
 		//페이지 생성
-		pages[FRIEND] = new FriendPage();
+		pages[FRIEND] = new FriendPage(this);
 		pages[CHATTING] = new ChattingPage();
 		pages[MYPAGE] = new MyPage();
 		
@@ -50,7 +61,6 @@ public class ChatMain extends JFrame{
 		p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		p_west.setPreferredSize(new Dimension(50,600));
 		
-		
 		//조립
 		for(int i=0; i<pages.length; i++) {
 			p_center.add(pages[i]);
@@ -59,9 +69,13 @@ public class ChatMain extends JFrame{
 		add(p_center);
 		add(p_west, BorderLayout.WEST);
 		
-		setBounds(500, 200, 380, 600); //창크기
+		setSize(380,600);
 		setVisible(true);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		loginForm = new LoginForm(this);
+		//member=memberDAO.login(member);
 		
 		//최초로 친구목록 보여지게
 		showHide(FRIEND);
@@ -78,7 +92,6 @@ public class ChatMain extends JFrame{
 			});
 		}
 
-		
 	}
 	
 	public void createNavi() {
@@ -106,15 +119,12 @@ public class ChatMain extends JFrame{
 		for(int i=0; i<pages.length;i++) {
 			if(i==n) {//넘겨받은 매개변수와 i가 일치할때만 보이게
 				pages[i].setVisible(true);//보이게 처리
-				
 			}else {
 				pages[i].setVisible(false);//안보이게 처리
-				
 			}
 		}
 	}
 
-	
 	public static void main(String[] args) {
 		new ChatMain();
 	}

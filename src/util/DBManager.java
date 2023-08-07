@@ -9,8 +9,8 @@ import java.sql.SQLException;
 //접속하고 접속 해제하는 공통코드
 public class DBManager {
 	String url="jdbc:oracle:thin:@localhost:1521:XE";
-	String user="shop";
-	String password="1234";
+	String user="chat";
+	String password="7777";
 	
 	//커넥션 만들기
 	public Connection connect() {
@@ -69,6 +69,5 @@ public class DBManager {
 					e.printStackTrace();
 				}
 			}
-			
 		}
 }
