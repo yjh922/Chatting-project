@@ -80,7 +80,7 @@ public class FriendFind extends PopUp{
 		p_center.add(bt_search);
 		p_south.add(scroll);
 		
-		setBounds(1000, 200, 350, 590);
+		setBounds(1150, 215, 350, 590);
 		
 		bt_search.addActionListener((e)->{
 			//System.out.println("클릭했어?");
