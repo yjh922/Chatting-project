@@ -63,9 +63,10 @@ public class ClientMain extends JFrame{
 		roommateDAO = new RoommateDAO(dbManager);
 		
 		box.addItem("192.168.0.14");
-		box.addItem("");
-		box.addItem("");
-		box.addItem("");
+		box.addItem("192.168.1.37");
+		box.addItem("192.168.1.220");
+		box.addItem("192.168.1.224");
+		box.addItem("192.168.1.229");
 
 		//스타일
 		p_north.setPreferredSize(new Dimension(380,50));
@@ -148,7 +149,19 @@ public class ClientMain extends JFrame{
 		sb.append("\"nick\" :\""+ChatMain.member.getNick()+"\", ");
 		sb.append("\"email\" :\""+ChatMain.member.getEmail()+"\", ");
 		sb.append("\"img\" :\""+ChatMain.member.getImg()+"\", ");
+		sb.append("\"friends\":[");
 		
+		for(int i=0;i<3;i++) {   // 3-1보다 작을때까지  쉼표..
+			sb.append("{");
+			sb.append("\"member_idx\":"+i+",");
+			sb.append("\"name\":\"zino\"");
+			if(i<(3-1)) {
+				sb.append("},");
+			}else {
+				sb.append("}");
+			}
+		}
+		sb.append("],");
 		
 		String str= t_input.getText().replace("\n", "한");
 		

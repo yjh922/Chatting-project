@@ -108,7 +108,8 @@ public class ChattingRoom extends PopUp{
 			public void mouseClicked(MouseEvent e) {
 				roomName=JOptionPane.showInputDialog(ChattingRoom.this, "방이름을 입력하세요");
 				if(roomName!=null) {
-					createRoom();					
+					createRoom();
+					ChattingRoom.this.setVisible(false);
 				}else if(roomName==""){
 					JOptionPane.showMessageDialog(ChattingRoom.this, "방이름을 입력해 주세요");
 				}

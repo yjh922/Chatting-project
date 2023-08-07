@@ -8,6 +8,10 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.sp.chat.client.domain.Roommate;
 import org.sp.chat.client.model.RoommateDAO;
 import org.sp.chat.client.view.ChattingPage;
@@ -18,6 +22,7 @@ public class ServerMessageThread extends Thread{
 	BufferedReader buffr;
 	BufferedWriter buffw;
 	boolean flag=true;
+	JSONParser jsonParser;
 	
 	public ServerMessageThread(GUIServer guiServer, Socket socket) {
 		this.guiServer=guiServer;
@@ -29,6 +34,7 @@ public class ServerMessageThread extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		jsonParser = new JSONParser();
 	}
 	
 	//듣기
@@ -42,6 +48,15 @@ public class ServerMessageThread extends Thread{
 			//sendMsg()도 함께 호출하자 
 			
 			//메시지를 보내는 사람의 회원 idx 이용하여 이 사람이 사용중인 룸, 룸에 참여한 사람을 담아놓은 List를 이용하여 아래 포문 돌리기 
+			try {
+				JSONObject obj=(JSONObject)jsonParser.parse(msg);
+				JSONArray jsonArray=(JSONArray)obj.get("friends");
+				System.out.println("친구 수는 "+jsonArray.size());
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
 			
 			
 			for(int i=0;i<guiServer.vec.size();i++) {

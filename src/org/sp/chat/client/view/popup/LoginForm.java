@@ -55,6 +55,8 @@ public class LoginForm extends PopUp {
 		bt_login.addActionListener((e) -> {
 			loginCheck();
 		});
+		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 	
 	// 로그인이 성공되면, 관리자 메인 프레임 보이게 처리

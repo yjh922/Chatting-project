@@ -79,7 +79,7 @@ public class ChatMain extends JFrame{
 		add(p_west, BorderLayout.WEST);
 		
 		setSize(380,600);
-		setVisible(true);
+		setVisible(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
