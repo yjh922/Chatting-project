@@ -1,9 +1,6 @@
 package org.sp.chat.client.view.popup;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -15,9 +12,10 @@ import javax.swing.JTextField;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.Member2DAO;
 import org.sp.chat.client.view.ChatMain;
-import org.sp.chat.client.view.Page;
 
-public class JoinForm extends PopUp {
+import util.DBManager;
+
+public class JoinPage  extends PopupPage{
 	ChatMain chatMain;
 	JTextField t_id;
 	JPasswordField t_pass;
@@ -28,12 +26,17 @@ public class JoinForm extends PopUp {
 	JButton bt_join;
 	JButton bt_login;
 	
-	LoginForm loginForm;
+	LoginPage loginForm;
 	
 	Member2DAO member2DAO;
-	
-	public JoinForm(ChatMain chatMain) {
+	DBManager dbManager;
+
+	public JoinPage(PopWin popWin, ChatMain chatMain) {
+		super(popWin);
 		this.chatMain = chatMain;
+		dbManager = new DBManager();
+	
+		setPreferredSize(new Dimension(380, 600));
 		
 		t_id = new JTextField();
 		t_pass = new JPasswordField();
@@ -41,9 +44,9 @@ public class JoinForm extends PopUp {
 		t_nick = new JTextField();
 		t_email = new JTextField();
 		
-		bt_join = new JButton("Join");
-		bt_login = new JButton("Login");
-		member2DAO = new Member2DAO();
+		bt_join = new JButton("가입");
+		bt_login = new JButton("로그인");
+		member2DAO = new Member2DAO(dbManager);
 		
 		Dimension d = new Dimension(340, 45);
 		
@@ -62,30 +65,19 @@ public class JoinForm extends PopUp {
 		add(bt_join);
 		add(bt_login);
 		
-		//setPreferredSize(new Dimension(500, 300));
-		setLayout(new FlowLayout());
-		
-		//bt_join.addActionListener(this);
-		//bt_login.addActionListener(this);
+
+		// 회원가입 들었을때
+		bt_join.addActionListener((e) -> {
+			regist();
+		});
 		
 		// 로그인 들었을때
 		bt_login.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (loginForm == null) {
-					loginForm = new LoginForm();
-				}
+				popWin.showHide(PopWin.LOGINPAGE);
 			}
 		});
-		
-		// 회원가입 들었을때
-		bt_login.addActionListener((e) -> {
-			regist();
-		});
-	}
-	
-	public JoinForm() {
-	}
-
+	} 	
 	public void regist() {
 		// 아이디, 패스워드 등 입력폼의 데이터를 하나의 DTO 담아서 insert 메서드로 전달하자
 		Member member = new Member();

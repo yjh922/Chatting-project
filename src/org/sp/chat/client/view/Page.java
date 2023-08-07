@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
-import org.sp.chat.client.view.popup.PopUp;
+import org.sp.chat.client.view.popup.PopWin;
 
 public class Page extends JPanel{
 	JPanel p_north;

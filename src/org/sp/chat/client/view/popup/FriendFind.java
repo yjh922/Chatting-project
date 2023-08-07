@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-public class FriendFind extends PopUp{
+public class FriendFind extends PopUP {
 	JPanel p_north;
 	JPanel p_center;
 	JLabel la_title,la_search;

@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-public class ChattingRoom extends PopUp{
+public class ChattingRoom extends PopUP {
 	JPanel p_north;
 	JPanel p_center;
 	JLabel la_title;

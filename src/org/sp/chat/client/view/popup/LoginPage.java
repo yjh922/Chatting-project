@@ -2,12 +2,9 @@ package org.sp.chat.client.view.popup;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -19,14 +16,14 @@ import org.sp.chat.client.view.ChatMain;
 
 import util.DBManager;
 
-public class LoginForm extends PopUp {
+public class LoginPage extends PopupPage {
+	
 	ChatMain chatMain;
 	JTextField t_id;
 	JPasswordField t_pass;
 	JButton bt_login;
 	JButton bt_join;
 	DBManager dbManager;
-	JoinForm joinForm;
 	
 	// DAO를 이용하여 db관련 업
 	MemberDAO memberDAO;
@@ -34,22 +31,24 @@ public class LoginForm extends PopUp {
 	
 	//private Image background=new ImageIcon(LoginForm.class.getResource("../res/Logoo.png")).getImage();//배경이미지
 	
-	public LoginForm(ChatMain chatMain) {
+	public LoginPage(PopWin popWin,ChatMain chatMain) {
+		super(popWin);
 		this.chatMain = chatMain; // 메인 프레임 넘겨받기
 		
 		t_id = new JTextField();
 		t_pass = new JPasswordField();
-		bt_login = new JButton("Login");
-		bt_join = new JButton("Join");
+		bt_login = new JButton("로그인");
+		bt_join = new JButton("가입");
 		dbManager = new DBManager();
 		memberDAO = new MemberDAO(dbManager);
 		
 		// 스타일
+		setPreferredSize(new Dimension(380, 600));
+		
 		Dimension d = new Dimension(340, 45);
 		t_id.setPreferredSize(d);
 		t_pass.setPreferredSize(d);
 		
-		setLayout(new FlowLayout());
 		
 		// 조립
 		add(t_id);
@@ -68,15 +67,11 @@ public class LoginForm extends PopUp {
 		// 회원가입 들었을때
 		bt_join.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (joinForm == null) {
-					joinForm = new JoinForm();
-				}
+				popWin.showHide(PopWin.JOINPAGE);
 			}
 		});
 	}
-	
-	public LoginForm() {
-	}
+
 	
 	/*
 	public void paint(Graphics g) {//그리는 함수

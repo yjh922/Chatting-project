@@ -10,7 +10,7 @@ import org.sp.chat.client.domain.Member;
 
 import util.DBManager;
 
-// 오직 member 테이블에 대한 CRUD만을 담당하기 위한 객체
+// 오직 admin 테이블에 대한 CRUD만을 담당하기 위한 객체
 public class MemberDAO {
 	DBManager dbManager;
 	

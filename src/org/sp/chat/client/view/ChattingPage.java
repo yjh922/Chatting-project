@@ -5,7 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import org.sp.chat.client.view.popup.ChattingRoom;
-import org.sp.chat.client.view.popup.PopUp;
+import org.sp.chat.client.view.popup.PopWin;
 
 public class ChattingPage extends Page{
 	

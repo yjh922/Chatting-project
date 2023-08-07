@@ -20,9 +20,7 @@ import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
-import org.sp.chat.client.view.popup.JoinForm;
-import org.sp.chat.client.view.popup.LoginForm;
-import org.sp.chat.client.view.popup.PopUp;
+import org.sp.chat.client.view.popup.PopWin;
 
 import util.DBManager;
 
@@ -38,9 +36,11 @@ public class ChatMain extends JFrame{
 	
 	Page[] pages;//컨텐츠 페이지
 
-	LoginForm loginForm;
+	//LoginPage loginForm;
 	
 	//JoinForm joinForm;
+	
+	PopWin popWin;
 
 	MemberDAO memberDAO;
 
@@ -51,6 +51,8 @@ public class ChatMain extends JFrame{
 		p_west = new JPanel();
 		pages = new Page[3];
 		memberDAO=new MemberDAO(new DBManager());
+		
+		popWin = new PopWin(this);
 		
 		//페이지 생성
 		pages[FRIEND] = new FriendPage(this);
@@ -77,13 +79,13 @@ public class ChatMain extends JFrame{
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		loginForm = new LoginForm(this);
+		//loginForm = new LoginPage(this);
 		//joinForm = new JoinForm(this);
 		
 		//member=memberDAO.login(member);
 		
 		//최초로 친구목록 보여지게
-		showHide(FRIEND);
+		//showHide(FRIEND);
 		
 		for(int i=0; i<navi.size();i++) {
 			JLabel obj=navi.get(i);
