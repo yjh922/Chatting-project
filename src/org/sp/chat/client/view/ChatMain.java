@@ -67,7 +67,7 @@ public class ChatMain extends JFrame{
 		p_west.setLayout(null);
 		
 		//스타일
-		p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		p_west.setPreferredSize(new Dimension(50,600));
 		
 		//조립

@@ -39,7 +39,6 @@ public class ClientMessageThread extends Thread{
 	String message;
 	String id;
 	String img;
-
 	
 	public ClientMessageThread(ClientMain clientServerMain) {
 		this.clientServerMain=clientServerMain;
@@ -67,7 +66,6 @@ public class ClientMessageThread extends Thread{
 			String name=(String)jsonObject.get("name");
 			img = (String)jsonObject.get("img");
 			String contents= (String)jsonObject.get("contents");
-			
 			
 			//클라이언트 채팅창 메시지 보내기
 			message=name+"님:"+contents;
@@ -108,7 +106,6 @@ public class ClientMessageThread extends Thread{
 		t_msg.setColumns(30);
 		t_msg.setBorder(null);
 		t_msg.setEditable(false);
-		
 		
 		
 		

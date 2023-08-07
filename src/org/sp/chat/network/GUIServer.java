@@ -30,9 +30,6 @@ public class GUIServer extends JFrame{
 	Vector<ServerMessageThread> vec;
 	
 
-	
-
-	
 	public GUIServer() {
 		p_north = new JPanel();
 		p_center= new JPanel();

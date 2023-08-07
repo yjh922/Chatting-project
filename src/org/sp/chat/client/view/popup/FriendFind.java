@@ -12,11 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
+import org.sp.chat.client.view.FriendPage;
 import org.sp.chat.client.view.MemberCell;
 
 import util.DBManager;
@@ -36,8 +36,10 @@ public class FriendFind extends PopUp{
 	DBManager dbManager;
 	MemberDAO memberDAO;
 	List<Member> memberList;
+	FriendPage friendPage;
 	
-	public FriendFind(ChatMain chatMain) {
+	public FriendFind(FriendPage friendPage, ChatMain chatMain) {
+		this.friendPage=friendPage;
 		p_north = new JPanel();
 		p_center = new JPanel();
 		p_south = new JPanel();
@@ -98,7 +100,7 @@ public class FriendFind extends PopUp{
 		
 		for(int i=0; i<memberList.size();i++) {
 			Member member=memberList.get(i);
-			MemberCell memberCell = new MemberCell(chatMain, member); 
+			MemberCell memberCell = new MemberCell(friendPage, chatMain, member); 
 			p_list.add(memberCell);
 		}
 		//화면갱신 

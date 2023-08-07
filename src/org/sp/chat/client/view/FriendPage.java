@@ -1,6 +1,5 @@
 package org.sp.chat.client.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -8,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,8 +15,8 @@ import javax.swing.JScrollPane;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.FriendDAO;
 import org.sp.chat.client.model.MemberDAO;
+import org.sp.chat.client.model.RoomDAO;
 import org.sp.chat.client.view.popup.FriendFind;
-import org.sp.chat.client.view.popup.PopUp;
 
 import util.DBManager;
 import util.ImageUtil;
@@ -32,6 +30,7 @@ public class FriendPage extends Page{
 	DBManager dbManager;
 	FriendDAO friendDAO;
 	MemberDAO memberDAO;
+	RoomDAO roomDAO;
 	List<Member> friendList;
 	FriendFind ff;
 	
@@ -52,6 +51,7 @@ public class FriendPage extends Page{
 
 		memberDAO = new MemberDAO(dbManager);
 		//memberList = memberDAO.selectAll();
+		roomDAO = new RoomDAO(dbManager);
 
 		
 		p_north.setLayout(null);
@@ -74,18 +74,21 @@ public class FriendPage extends Page{
 		la_plus.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if(ff==null) {
-					ff = new FriendFind(chatMain); 
+					ff = new FriendFind(FriendPage.this, chatMain); 
 				}
 			}
 		});
 		
 	}
 	public void showFriendList() {
+		//기존의 패널에 붙여진 컴포넌트들을 모두 제거 
+		p_list.removeAll();
+		
 		friendList = friendDAO.friendAll(ChatMain.member.getMember_idx());
 		
 		for(int i=0;i<friendList.size();i++) {
 			Member friend=friendList.get(i);
-			FriendCell friendCell = new FriendCell(friend);
+			FriendCell friendCell = new FriendCell(this, friend);
 			p_list.add(friendCell);
 		}
 		p_list.updateUI();

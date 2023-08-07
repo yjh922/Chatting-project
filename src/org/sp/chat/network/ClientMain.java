@@ -68,6 +68,7 @@ public class ClientMain extends JFrame{
 		box.addItem("192.168.1.220");
 		box.addItem("192.168.1.224");
 		box.addItem("192.168.1.229");
+		box.addItem("192.168.0.2");
 
 		//스타일
 		p_north.setPreferredSize(new Dimension(380,50));

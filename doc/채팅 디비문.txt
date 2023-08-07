@@ -108,3 +108,7 @@ insert into friend(friend_idx, me, you) values(seq_friend.nextval, 1,2);
 
 commit;
 
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'infinite', '4444', '인피니트', '인슾', 'jkl@naver.com');
+
+commit;
+

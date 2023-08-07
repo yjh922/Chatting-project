@@ -21,8 +21,10 @@ public class MemberCell extends JPanel{
 	JLabel la_icon;
 	JLabel la_name;
 	Member member; //셀에 들어간 사람 즉 친구 
+	FriendPage friendPage;
 	
-	public MemberCell(ChatMain chatMain, Member member){
+	public MemberCell(FriendPage friendPage,ChatMain chatMain, Member member){
+		this.friendPage=friendPage;
 		this.chatMain=chatMain;
 		this.member=member;
 		
@@ -60,6 +62,7 @@ public class MemberCell extends JPanel{
 					}else {
 						//등록된 적이 없다면...
 						addFriend() ;//친구로 등록 
+						friendPage.showFriendList();
 					}
 					
 				}
