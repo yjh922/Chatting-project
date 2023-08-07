@@ -2,7 +2,12 @@ package org.sp.chat.client.view.popup;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -11,7 +16,6 @@ import javax.swing.JTextField;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
-import org.sp.chat.network.GUIServer;
 
 import util.DBManager;
 
@@ -22,10 +26,13 @@ public class LoginForm extends PopUp {
 	JButton bt_login;
 	JButton bt_join;
 	DBManager dbManager;
+	JoinForm joinForm;
 	
 	// DAO를 이용하여 db관련 업
 	MemberDAO memberDAO;
 	Member member;
+	
+	//private Image background=new ImageIcon(LoginForm.class.getResource("../res/Logoo.png")).getImage();//배경이미지
 	
 	public LoginForm(ChatMain chatMain) {
 		this.chatMain = chatMain; // 메인 프레임 넘겨받기
@@ -50,12 +57,33 @@ public class LoginForm extends PopUp {
 		add(bt_login);
 		add(bt_join);
 		
+		//bt_login.addActionListener(this);
+		//bt_join.addActionListener(this);
+		
 		// 로그인 들었을때
 		bt_login.addActionListener((e) -> {
 			loginCheck();
 		});
+		
+		// 회원가입 들었을때
+		bt_join.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (joinForm == null) {
+					joinForm = new JoinForm();
+				}
+			}
+		});
 	}
 	
+	public LoginForm() {
+	}
+	
+	/*
+	public void paint(Graphics g) {//그리는 함수
+		g.drawImage(background, 0, 0, null);//background를 그려줌
+	}
+	*/
+
 	// 로그인이 성공되면, 관리자 메인 프레임 보이게 처리
 	public void loginCheck() {
 		// 사용자가 입력한 아이디와 패스워드를 채워넣을 빈(empty) 상태의 DTO 생성
@@ -79,7 +107,7 @@ public class LoginForm extends PopUp {
 			chatMain.setVisible(true);
 			chatMain.setTitle(member.getId()+"로그인 중");
 			
-			this.setVisible(false);// 나는 안 보이게..
+			//this.setVisible(false);// 나는 안 보이게..
 		}
 	}
 }

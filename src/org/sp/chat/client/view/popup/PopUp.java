@@ -7,6 +7,7 @@ public class PopUp extends JFrame{
 		
 		setSize(380,600);
 		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 	
 }
