@@ -95,6 +95,8 @@ public class MemberDAO {
 		
 		return list;
 	}
+	
+	//친구 찾기
 	public List searchList(Member dto, String keyword) {    //  bt   select * from member where id like '%"+변수+"%'
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -129,6 +131,29 @@ public class MemberDAO {
 			dbManager.release(con, pstmt, rs);
 		}
 		return list;
+	}
+	
+	//회원 탈퇴
+	public int delete(int member_idx) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		con=dbManager.connect();
+		
+		String sql="delete from member where member_idx=?";
+			
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, member_idx);
+			
+			result=pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 }

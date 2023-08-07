@@ -30,7 +30,7 @@ start with 1;
 insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'btob', '1111', '비투비', '비투', 'abc@naver.com');
 insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'bts', '2222', '비티에스', '방탄', 'def@naver.com');
 insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'exo', '3333', '엑소', '엑소', 'ghi@naver.com');
-
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'a', '4444', '에이', '에이', 'a@naver.com');
 
 친구 테이블
 
