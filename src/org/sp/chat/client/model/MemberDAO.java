@@ -16,8 +16,43 @@ import util.DBManager;
 public class MemberDAO {
 	DBManager dbManager;
 	
+	
+	public MemberDAO() {
+		this.dbManager= new DBManager();
+	}
+	
 	public MemberDAO(DBManager dbManager) {
 		this.dbManager=dbManager;
+	}
+	
+	public boolean changeProfile(Member member) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int updateCnt = 0;
+		try {
+			con=dbManager.connect();
+			
+			if (con == null) {
+				System.out.println("접속실패");
+			} else {
+				String sql = "update member set name=?, img=? where id = ?";
+				pstmt = con.prepareStatement(sql); // 쿼리수행 객체 생성
+				pstmt.setString(1, member.getName()); // 이름
+				pstmt.setString(2, member.getImg()); // 이미지파일
+				pstmt.setString(3, member.getId()); // id
+				// 쿼리실행...
+				updateCnt = pstmt.executeUpdate();
+				
+				con.commit();
+			}
+			
+		}catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} finally {
+			dbManager.release(con, pstmt);
+		}
+		return (updateCnt > 0);
 	}
 	
 	public Member login(Member member) {

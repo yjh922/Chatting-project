@@ -88,7 +88,7 @@ public class LoginForm extends PopUp {
 			
 			FriendPage friendPage=(FriendPage)chatMain.pages[ChatMain.FRIEND];
 			friendPage.showFriendList();
-			chatMain.loginComplete();
+			chatMain.repaint();
 
 			this.setVisible(false);// 나는 안 보이게..
 			

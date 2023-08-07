@@ -64,7 +64,9 @@ public class MyPage extends Page{
 	LoginForm loginForm;
 	
 	ChatMain chatMain;
+	MyPage mypage;
 	public MyPage(ChatMain chatMain) {
+		mypage = this;
 		this.chatMain=chatMain;
 		p_south=new JPanel();
 		la_title =new JLabel("마이페이지");
@@ -117,11 +119,12 @@ public class MyPage extends Page{
 		p_south.add(unregister);
 
 		
+		
 		bt_profile.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				// 프로필 편집 버튼 클릭 시 profile 연결
-				Profile profile = new Profile();
+				Profile profile = new Profile(mypage);
 				profile.setVisible(true);
 			
 			}
@@ -178,7 +181,7 @@ public class MyPage extends Page{
 
 	
 	// 화면을 다시 구성하기
-	public void reView() {
+	public void repaint() {
 		System.out.println("동작여부");
 		if(ChatMain.member == null) {
 			System.out.println("null 값?");

@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.view.popup.PopUp;
 
-public class Page extends JPanel{
+class Page extends JPanel{
 	JPanel p_north;
 	JPanel p_center;
 
@@ -41,7 +41,7 @@ public class Page extends JPanel{
 
 	}
 	
-	public void reView() {
+	public void repaint() {
 		
 	}
 	
