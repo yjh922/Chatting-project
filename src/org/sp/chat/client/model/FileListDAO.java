@@ -2,10 +2,10 @@ package org.sp.chat.client.model;
 
 import util.DBManager;
 
-public class FilelistDAO {
+public class FileListDAO {
 	DBManager dbManager;
 
-	public FilelistDAO(DBManager dbManager) {
+	public FileListDAO(DBManager dbManager) {
 		this.dbManager=dbManager;
 	}
 }

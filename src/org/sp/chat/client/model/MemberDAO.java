@@ -58,6 +58,7 @@ public class MemberDAO {
 		}
 		return dto;
 	}
+
 	
 	public List selectAll() {
 		Connection con=null;
@@ -129,4 +130,5 @@ public class MemberDAO {
 		}
 		return list;
 	}
+
 }

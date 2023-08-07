@@ -23,6 +23,8 @@ public class Page extends JPanel{
 		p_north = new JPanel();
 		p_center=new JPanel();
 
+	
+
 		//스타일
 		p_north.setPreferredSize(new Dimension(330,50));		
 		p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
@@ -35,6 +37,12 @@ public class Page extends JPanel{
 		
 		setPreferredSize(new Dimension(330, 550));
 		setVisible(true);
+
+
+	}
+	
+	public void reView() {
+		
 	}
 	
 }
