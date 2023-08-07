@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -12,12 +13,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
+import org.sp.chat.client.domain.Roommate;
+import org.sp.chat.client.model.RoommateDAO;
+import org.sp.chat.client.view.ChatMain;
 
 public class GUIServer extends JFrame{
 	JPanel p_north;
 	JPanel p_center;
-	JTextField t_port;
 	JButton bt_server;
 	JTextArea area;
 	JScrollPane scroll;
@@ -28,10 +31,11 @@ public class GUIServer extends JFrame{
 	
 
 	
+
+	
 	public GUIServer() {
 		p_north = new JPanel();
 		p_center= new JPanel();
-		t_port = new JTextField("7777");
 		bt_server = new JButton("서버가동");
 		area = new JTextArea();
 		scroll = new JScrollPane(area);
@@ -39,7 +43,6 @@ public class GUIServer extends JFrame{
 		
 		p_north.setPreferredSize(new Dimension(380,50));
 		
-		p_north.add(t_port);
 		p_north.add(bt_server);
 		
 		add(p_north, BorderLayout.NORTH);
@@ -48,6 +51,7 @@ public class GUIServer extends JFrame{
 		setBounds(380, 0, 380, 600);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		
 		bt_server.addActionListener((e)->{
 			//서버 가동하기
@@ -60,13 +64,14 @@ public class GUIServer extends JFrame{
 			bt_server.setEnabled(false);//버튼을 중복해서 못누르게 처리
 		});
 		
+		
 	}
 	
 	public void serverListen() {
-		int port=Integer.parseInt(t_port.getText());
+		
 		
 		try {
-			server = new ServerSocket(port);
+			server = new ServerSocket(7777);
 			
 			while(true) {
 				Socket socket =server.accept();
@@ -87,4 +92,5 @@ public class GUIServer extends JFrame{
 	public static void main(String[] args) {
 		new GUIServer();
 	}
+	
 }

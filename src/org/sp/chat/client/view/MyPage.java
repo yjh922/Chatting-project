@@ -79,8 +79,6 @@ public class MyPage extends Page{
 		nick =new JButton("");
 		unregister=new JButton("회원탈퇴");
 
-		
-		//chooser = new JFileChooser("D:/morning/html_workspace/images");
 
 		
 		//스타일
@@ -101,8 +99,7 @@ public class MyPage extends Page{
 		
 		la_title.setHorizontalAlignment(JLabel.LEFT);
 		la_logout.setHorizontalAlignment(JLabel.RIGHT);
-		//nick.setHorizontalAlignment(JButton.CENTER);
-		
+	
 		//조립		
 		p_north.add(la_title);
 		p_north.add(la_logout);
@@ -179,9 +176,7 @@ public class MyPage extends Page{
 			 chatMain.loginForm.setVisible(true);
 		}
 		
-	public void nick() {
-		
-	}
+
 	
 	// 화면을 다시 구성하기
 	public void reView() {

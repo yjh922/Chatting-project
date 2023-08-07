@@ -12,6 +12,8 @@ import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
 
+import org.sp.chat.client.view.FriendPage;
+
 import util.DBManager;
 
 public class LoginForm extends PopUp {
@@ -26,9 +28,9 @@ public class LoginForm extends PopUp {
 	MemberDAO memberDAO;
 	Member member;
 	
-	
 	public LoginForm(ChatMain chatMain) {
 		this.chatMain = chatMain; // 메인 프레임 넘겨받기
+		
 		t_id = new JTextField("btob");
 		t_pass = new JPasswordField("1111");
 		bt_login = new JButton("Login");
@@ -67,21 +69,30 @@ public class LoginForm extends PopUp {
 		
 		//memberDAO.login(로그인 정보가 채워진 DTO를 원함..)
 		// login() 메서드 호출 후 반환되는 DTO의 값이 null 이 아니라면, 로그인 성공으로 판단
-		ChatMain.member = memberDAO.login(member);
+		Member memberDTO = memberDAO.login(member);
 		
-		if(ChatMain.member == null) { // 로그인 실패
+		if(memberDTO == null) { // 로그인 실패
 			JOptionPane.showConfirmDialog(this, "로그인 정보가 올바르지 않습니다");
 		} else { // 로그인 성공
 			JOptionPane.showConfirmDialog(this, "로그인 성공");
 			
+			//로그인 성공시 회원의 정보를 보관해둔다 
+			chatMain.member=memberDTO;
+			
 			// 메인 프레임 보여지게..
 			chatMain.setVisible(true);
 			chatMain.setTitle(member.getId()+"로그인 중");
+
+			
+			FriendPage friendPage=(FriendPage)chatMain.pages[ChatMain.FRIEND];
+			friendPage.showFriendList();
 			chatMain.loginComplete();
-			
-			
+
 			this.setVisible(false);// 나는 안 보이게..
+			
 		}
 	
 	}
+	
+	
 }
