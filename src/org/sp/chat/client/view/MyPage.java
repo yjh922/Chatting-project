@@ -45,7 +45,6 @@ public class MyPage extends Page{
 	JLabel la_logout;
 
 	JButton bt_file;
-	JPanel p_preview;
 	JButton bt_regist; //수정버튼(등록)
 	JPanel p_content;
 	
