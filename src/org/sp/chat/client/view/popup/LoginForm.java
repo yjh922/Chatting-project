@@ -31,8 +31,8 @@ public class LoginForm extends PopUp {
 	public LoginForm(ChatMain chatMain) {
 		this.chatMain = chatMain; // 메인 프레임 넘겨받기
 		
-		t_id = new JTextField("");
-		t_pass = new JPasswordField("");
+		t_id = new JTextField("btob");
+		t_pass = new JPasswordField("1111");
 		bt_login = new JButton("Login");
 		bt_join = new JButton("Join");
 		dbManager = new DBManager();

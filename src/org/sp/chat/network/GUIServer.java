@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -28,6 +29,7 @@ public class GUIServer extends JFrame{
 	Thread acceptThread;
 	ServerSocket server;
 	Vector<ServerMessageThread> vec;
+	List userIdx=new ArrayList();
 	
 
 	
@@ -48,7 +50,7 @@ public class GUIServer extends JFrame{
 		add(p_north, BorderLayout.NORTH);
 		add(scroll);
 		
-		setBounds(380, 0, 380, 600);
+		setBounds(0, 0, 380, 600);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -81,6 +83,8 @@ public class GUIServer extends JFrame{
 				smt.start();
 				
 				vec.add(smt);
+				//userIdx.add(ChatMain.member.getMember_idx());
+				
 				
 				area.append("현재 접속자" +vec.size()+"명\n");
 				

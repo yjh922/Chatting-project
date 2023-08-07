@@ -66,6 +66,7 @@ public class ServerMessageThread extends Thread{
 					JSONObject friends=(JSONObject)jsonArray.get(i);
 
 					Long member_idx=(Long)friends.get("member_idx");
+					roommateList.add(member_idx);
 				}
 				
 				System.out.println(roommateList);
@@ -77,7 +78,8 @@ public class ServerMessageThread extends Thread{
 
 				for(int i=0;i<guiServer.vec.size();i++) {
 					
-					ServerMessageThread smt=guiServer.vec.get(i);
+					ServerMessageThread smt=guiServer.vec.get(i);//쓰레드
+					//guiServer.userIdx.get(i);//접속한 회원 idx
 					smt.sendMsg(msg);//클라이언트에 보내기
 				}
 			

@@ -1,6 +1,7 @@
 package org.sp.chat.network;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -76,6 +77,7 @@ public class ClientMain extends JFrame{
 		scroll_input.setPreferredSize(new Dimension(230,45));
 		t_input.setLineWrap(true);
 		p_center.setLayout(new BoxLayout(p_center, BoxLayout.Y_AXIS));
+	
 		
 		//조립
 		p_north.add(la_name);
@@ -89,7 +91,7 @@ public class ClientMain extends JFrame{
 		
 		add(p_south, BorderLayout.SOUTH);
 		
-		setBounds(0, 0, 380, 600);
+		setBounds(950, 100, 380, 600);
 		setVisible(true);
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -138,6 +140,7 @@ public class ClientMain extends JFrame{
 		roommateList=roommateDAO.selectChat(room.getRoom_idx());
 		System.out.println(roommateList.size()+"참여 중");
 	}
+	
 	
 	public void send() {
 		StringBuffer sb = new StringBuffer();
