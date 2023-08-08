@@ -60,7 +60,7 @@ public class ChattingRoom extends PopUp{
 		p_list.setLayout(new BoxLayout(p_list, BoxLayout.Y_AXIS));
 		dbManager = new DBManager();
 		friendDAO = new FriendDAO(dbManager);
-		friendList = friendDAO.friendAll(ChatMain.member.getMember_idx());
+		
 		
 		roomDAO=new RoomDAO(dbManager);
 		roommateDAO = new RoommateDAO(dbManager);
@@ -83,12 +83,7 @@ public class ChattingRoom extends PopUp{
 		la_make.setHorizontalAlignment(JLabel.RIGHT);
 		
 		//부착
-		for(int i=0; i<friendList.size(); i++) {
-			Member friend =friendList.get(i);
-			ChattingRoomCell chattingRoomCell = new ChattingRoomCell(friend);
-			p_list.add(chattingRoomCell); //디자인 추가 
-			cellList.add(chattingRoomCell); //리스트에 추가 
-		}
+		showChoiceList();
 			
 		p_north.add(la_title);
 		p_north.add(la_make);
@@ -146,5 +141,17 @@ public class ChattingRoom extends PopUp{
 
 		}
 
+	}
+	
+	public void showChoiceList() {
+		p_list.removeAll();
+		friendList = friendDAO.friendAll(ChatMain.member.getMember_idx());
+		for(int i=0; i<friendList.size(); i++) {
+			Member friend =friendList.get(i);
+			ChattingRoomCell chattingRoomCell = new ChattingRoomCell(friend);
+			p_list.add(chattingRoomCell); //디자인 추가 
+			cellList.add(chattingRoomCell); //리스트에 추가 
+		}
+		p_list.updateUI();
 	}
 }

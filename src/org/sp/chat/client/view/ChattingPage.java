@@ -73,6 +73,7 @@ public class ChattingPage extends Page{
 		la_chat.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				chattingRoom = new ChattingRoom(ChattingPage.this);
+				chattingRoom.showChoiceList();
 			}
 		});
 
