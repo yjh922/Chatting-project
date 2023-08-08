@@ -1,10 +1,12 @@
 package org.sp.chat.client.view.popup;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -26,6 +28,12 @@ public class JoinPage  extends PopupPage{
 	JTextField t_email;
 	JButton bt_join;
 	JButton bt_login;
+	JLabel la_id;
+	JLabel la_pass;
+	JLabel la_name;
+	JLabel la_nick;
+	JLabel la_email;
+	
 	
 	LoginPage loginForm;
 	
@@ -46,6 +54,11 @@ public class JoinPage  extends PopupPage{
 		t_name = new JTextField();
 		t_nick = new JTextField();
 		t_email = new JTextField();
+		la_id = new JLabel("아이디");
+		la_pass =new JLabel("비밀번호");
+		la_name = new JLabel("이름");
+		la_nick = new JLabel("닉네임");
+		la_email = new JLabel("이메일");
 		
 		bt_join = new JButton("가입");
 		bt_login = new JButton("로그인");
@@ -55,7 +68,21 @@ public class JoinPage  extends PopupPage{
 		hashConverter = new HashConverter();
 		mailSender = new MailSender();
 		
-		Dimension d = new Dimension(340, 45);
+		Dimension d = new Dimension(280, 45);
+		Dimension l = new Dimension(70,45);
+		Font f= new Font("휴먼모음T", Font.PLAIN, 20); 
+		
+		la_id.setPreferredSize(l);
+		la_pass.setPreferredSize(l);
+		la_name.setPreferredSize(l);
+		la_nick.setPreferredSize(l);
+		la_email.setPreferredSize(l);
+		
+		la_id.setFont(f);
+		la_pass.setFont(f);
+		la_name.setFont(f);
+		la_nick.setFont(f);
+		la_email.setFont(f);
 		
 		t_id.setPreferredSize(d);
 		t_pass.setPreferredSize(d);
@@ -63,10 +90,15 @@ public class JoinPage  extends PopupPage{
 		t_nick.setPreferredSize(d);
 		t_email.setPreferredSize(d);
 		
+		add(la_id);
 		add(t_id);
+		add(la_pass);
 		add(t_pass);
+		add(la_name);
 		add(t_name);
+		add(la_nick);
 		add(t_nick);
+		add(la_email);
 		add(t_email);
 		
 		add(bt_join);
@@ -101,9 +133,10 @@ public class JoinPage  extends PopupPage{
 		if(result >= 0) {
 			// 이메일발송
 			
-			boolean flag = mailSender.send("jihyun961029@gmail.com", "가입축하", member.getName() + " 가입을 진심으로 축하드려요");
+			boolean flag = mailSender.send(member.getEmail(), "가입축하", member.getName() + " 가입을 진심으로 축하드려요");
 			if(flag) {
 				JOptionPane.showMessageDialog(this, "가입성공");
+		
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "가입실패");
