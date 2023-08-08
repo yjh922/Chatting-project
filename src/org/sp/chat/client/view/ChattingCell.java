@@ -21,7 +21,7 @@ public class ChattingCell extends JPanel{
 	JLabel la_icon;
 	JLabel la_name;
 	Room room;
-	ClientMain clientMain;
+	
 	
 	public ChattingCell(ChatMain chatMain, Room room){
 		this.chatMain=chatMain;
@@ -45,9 +45,9 @@ public class ChattingCell extends JPanel{
 				if(e.getClickCount()==2) {
 					
 					System.out.println(room.getRoom_idx()+" 클릭했어?");
-					if(clientMain==null) {
-						clientMain = new ClientMain(room);
-					}
+					
+					ClientMain clientMain = new ClientMain(room);
+					
 				}
 			}
 			

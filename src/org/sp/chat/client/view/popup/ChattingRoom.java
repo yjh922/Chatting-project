@@ -66,7 +66,7 @@ public class ChattingRoom extends PopUp{
 		roommateDAO = new RoommateDAO(dbManager);
 		
 		//스타일
-		p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		p_north.setPreferredSize(new Dimension(330, 50));
 		
 		scroll.setPreferredSize(new Dimension(380,500));
@@ -82,6 +82,7 @@ public class ChattingRoom extends PopUp{
 		la_title.setHorizontalAlignment(JLabel.LEFT);
 		la_make.setHorizontalAlignment(JLabel.RIGHT);
 		
+		//부착
 		for(int i=0; i<friendList.size(); i++) {
 			Member friend =friendList.get(i);
 			ChattingRoomCell chattingRoomCell = new ChattingRoomCell(friend);
@@ -89,7 +90,6 @@ public class ChattingRoom extends PopUp{
 			cellList.add(chattingRoomCell); //리스트에 추가 
 		}
 			
-		//부착
 		p_north.add(la_title);
 		p_north.add(la_make);
 		
@@ -97,13 +97,14 @@ public class ChattingRoom extends PopUp{
 		add(p_north, BorderLayout.NORTH);
 		add(scroll);
 		
-		setBounds(380, 0, 380, 600);
+		setLocationRelativeTo(null);
 		
 		la_make.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				roomName=JOptionPane.showInputDialog(ChattingRoom.this, "방이름을 입력하세요");
 				if(roomName!=null) {
 					createRoom();
+					chattingPage.showRoomList();
 					ChattingRoom.this.setVisible(false);
 				}else if(roomName==""){
 					JOptionPane.showMessageDialog(ChattingRoom.this, "방이름을 입력해 주세요");
@@ -142,6 +143,7 @@ public class ChattingRoom extends PopUp{
 			}
 			System.out.println("친구방 개설");
 			chattingPage.p_list.updateUI();
+
 		}
 
 	}

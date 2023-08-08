@@ -3,7 +3,9 @@ package org.sp.chat.client.view.popup;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -11,10 +13,11 @@ import javax.swing.JTextField;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
-
+import org.sp.chat.client.view.ChattingPage;
 import org.sp.chat.client.view.FriendPage;
 
 import util.DBManager;
+import util.ImageUtil;
 
 public class LoginForm extends PopUp {
 	ChatMain chatMain;
@@ -23,6 +26,7 @@ public class LoginForm extends PopUp {
 	JButton bt_login;
 	JButton bt_join;
 	DBManager dbManager;
+	JLabel la_logo;
 	
 	// DAO를 이용하여 db관련 업
 	MemberDAO memberDAO;
@@ -31,12 +35,13 @@ public class LoginForm extends PopUp {
 	public LoginForm(ChatMain chatMain) {
 		this.chatMain = chatMain; // 메인 프레임 넘겨받기
 		
-		t_id = new JTextField("");
-		t_pass = new JPasswordField("");
+		t_id = new JTextField("btob");
+		t_pass = new JPasswordField("1111");
 		bt_login = new JButton("Login");
 		bt_join = new JButton("Join");
 		dbManager = new DBManager();
 		memberDAO = new MemberDAO(dbManager);
+		la_logo= new JLabel(new ImageIcon(ImageUtil.getImage("Logoo.png", 300, 300)));
 		
 		// 스타일
 		Dimension d = new Dimension(340, 45);
@@ -46,6 +51,7 @@ public class LoginForm extends PopUp {
 		setLayout(new FlowLayout());
 		
 		// 조립
+		add(la_logo);
 		add(t_id);
 		add(t_pass);
 		add(bt_login);
@@ -88,6 +94,8 @@ public class LoginForm extends PopUp {
 			
 			FriendPage friendPage=(FriendPage)chatMain.pages[ChatMain.FRIEND];
 			friendPage.showFriendList();
+			ChattingPage chattingPage=(ChattingPage)chatMain.pages[ChatMain.CHATTING];
+			chattingPage.showRoomList();
 			chatMain.loginComplete();
 
 			this.setVisible(false);// 나는 안 보이게..

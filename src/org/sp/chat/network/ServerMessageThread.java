@@ -8,13 +8,16 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.domain.Roommate;
 import org.sp.chat.client.model.RoommateDAO;
+import org.sp.chat.client.view.ChatMain;
 import org.sp.chat.client.view.ChattingPage;
 
 public class ServerMessageThread extends Thread{
@@ -24,7 +27,11 @@ public class ServerMessageThread extends Thread{
 	BufferedWriter buffw;
 	boolean flag=true;
 	JSONParser jsonParser;
-	List roommateList = new ArrayList();
+	List<Roommate> roommateList = new ArrayList<Roommate>();
+	
+	Member member;
+	Vector<Integer> mateList=new Vector<Integer>();
+	
 	
 	public ServerMessageThread(GUIServer guiServer, Socket socket) {
 		this.guiServer=guiServer;
@@ -51,44 +58,62 @@ public class ServerMessageThread extends Thread{
 			
 			//메시지를 보내는 사람의 회원 idx 이용하여 이 사람이 사용중인 룸, 룸에 참여한 사람을 담아놓은 List를 이용하여 아래 포문 돌리기 
 			try {
-				JSONObject obj=(JSONObject)jsonParser.parse(msg);
-				JSONArray jsonArray=(JSONArray)obj.get("friends");
-				System.out.println("친구 수는 "+jsonArray.size());
+				JSONParser jsonParser = new JSONParser();
+				JSONObject jsonObject=(JSONObject)jsonParser.parse(msg);
+				String requestType = (String)jsonObject.get("requestType");
 				
-				//방번호 구하기
-				JSONObject room=(JSONObject)jsonArray.get(0);
-				Long room_idx =(Long)room.get("room_idx");
-				roommateList.add(room_idx);
-				
-				//참여 친구 구하기
-				for(int i=0; i<jsonArray.size(); i++) {
-					
-					JSONObject friends=(JSONObject)jsonArray.get(i);
-
-					Long member_idx=(Long)friends.get("member_idx");
+				switch(requestType) {
+					case "login":getInfo(jsonObject);break;
+					case "message":broadCast(jsonObject);break;
 				}
-				
-				System.out.println(roommateList);
-			
 				
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-
-				for(int i=0;i<guiServer.vec.size();i++) {
-					
-					ServerMessageThread smt=guiServer.vec.get(i);
-					smt.sendMsg(msg);//클라이언트에 보내기
-				}
-			
-			
-			for(int i=0;i<guiServer.vec.size();i++) {
-				ServerMessageThread smt=guiServer.vec.get(i);
-				smt.sendMsg(msg);//클라이언트에 보내기
-			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	//1)접속한 회원의 정보를 보관 
+	//2)접속한 회원의 룸메이트 정보를 이용하여 브로드케스팅 명단 만드릭 
+	public void getInfo(JSONObject obj) {
+		long me=(Long)obj.get("me");
+		
+		member = guiServer.memberDAO.select((int)me);
+
+		roommateList.removeAll(roommateList); //컬렉션 비우기
+		
+		JSONArray jsonArray=(JSONArray)obj.get("roommdate");
+		for(int i=0; i<jsonArray.size();i++) {
+			JSONObject json=(JSONObject)jsonArray.get(i);
+			long member_idx=(Long)json.get("member_idx");
+			mateList.add((int)member_idx);
+		}
+		System.out.println("제 친구는 "+mateList.size()+"입니다");
+	}
+	
+	
+	public void broadCast(JSONObject obj) {
+		String data = (String)obj.get("data");
+		
+		//친구명단과 대화쓰레드가 들어있는 총 참여자 명단을 비교하여 , 같은 경우만 메시지 보내자 
+		for(int i=0;i<guiServer.vec.size();i++) {
+			ServerMessageThread smt =guiServer.vec.get(i);
+			for(int a=0;a<mateList.size();a++) {
+				int member_idx=mateList.get(a);
+				if(member_idx == smt.member.getMember_idx()) { //메시지 전송대상
+					
+					StringBuilder sb = new StringBuilder();
+					sb.append("{");
+					sb.append("\"requestType\" : \"message\",");
+					sb.append("\"sender\": "+member.getMember_idx()+", ");
+					sb.append("\"data\": \""+data+"\"");
+					sb.append("}");
+					
+					smt.sendMsg(sb.toString());
+				}
+			}
 		}
 	}
 	

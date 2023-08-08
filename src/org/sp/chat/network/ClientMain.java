@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
 
 import org.sp.chat.client.domain.Room;
 import org.sp.chat.client.domain.Roommate;
+import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.model.RoommateDAO;
 import org.sp.chat.client.view.ChatMain;
 
@@ -42,6 +43,7 @@ public class ClientMain extends JFrame{
 	ClientMessageThread cmt;
 	Room room;
 	DBManager dbManager;
+	MemberDAO memberDAO;
 	RoommateDAO roommateDAO;
 	Roommate roommate;
 	List<Roommate> roommateList=new ArrayList<Roommate>();
@@ -62,13 +64,13 @@ public class ClientMain extends JFrame{
 		
 		dbManager = new DBManager();
 		roommateDAO = new RoommateDAO(dbManager);
+		memberDAO = new MemberDAO(dbManager);
 		
 		box.addItem("192.168.1.37");
 		box.addItem("192.168.0.14");
 		box.addItem("192.168.1.220");
 		box.addItem("192.168.1.224");
 		box.addItem("192.168.1.229");
-		box.addItem("192.168.0.2");
 
 		//스타일
 		p_north.setPreferredSize(new Dimension(380,50));
@@ -77,6 +79,7 @@ public class ClientMain extends JFrame{
 		scroll_input.setPreferredSize(new Dimension(230,45));
 		t_input.setLineWrap(true);
 		p_center.setLayout(new BoxLayout(p_center, BoxLayout.Y_AXIS));
+	
 		
 		//조립
 		p_north.add(la_name);
@@ -90,7 +93,7 @@ public class ClientMain extends JFrame{
 		
 		add(p_south, BorderLayout.SOUTH);
 		
-		setBounds(0, 0, 380, 600);
+		setBounds(950, 100, 380, 600);
 		setVisible(true);
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -106,10 +109,10 @@ public class ClientMain extends JFrame{
 				if(key == KeyEvent.VK_ENTER) {//엔터치면..
 					//서버에 메시지 전송
 					send();
+					
 				}
 			}
 		});
-		
 		bt_input.addActionListener((e)->{
 			send();
 			
@@ -128,6 +131,34 @@ public class ClientMain extends JFrame{
 			cmt = new ClientMessageThread(this);
 			cmt.start();
 			
+			//룸메이트 정보 가져오기 
+			List<Roommate> roommateList=roommateDAO.selectChat(room.getRoom_idx());
+			
+			//접속과 동시에, 대화용 데이터가 아닌, 접속자 정보에 대한 데이터 전송 
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("{");
+			sb.append("\"requestType\" : \"login\",");
+			sb.append("\"me\": "+ChatMain.member.getMember_idx()+", ");
+			sb.append("\"roommdate\":[");
+			
+			for(int i=0;i<roommateList.size();i++) {
+				Roommate roommate=roommateList.get(i);
+				
+				sb.append("{");
+				sb.append("\"member_idx\":"+roommate.getMember().getMember_idx());
+	
+				if(i < roommateList.size()-1) {
+					sb.append("},");					
+				}else {
+					sb.append("}");					
+				}
+			}
+			sb.append("]");
+			sb.append("}");			
+			
+			cmt.sendMsg(sb.toString());
+			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -140,40 +171,18 @@ public class ClientMain extends JFrame{
 		System.out.println(roommateList.size()+"참여 중");
 	}
 	
+	
 	public void send() {
-		StringBuffer sb = new StringBuffer();
-		
-		//개발자가 전송 프로토콜을 정의한다..
-		sb.append("{");
-		sb.append("\"idx\":"+ChatMain.member.getMember_idx()+",");
-		sb.append("\"id\" :\""+ChatMain.member.getId()+"\", ");
-		sb.append("\"name\" :\""+ChatMain.member.getName()+"\", ");
-		sb.append("\"nick\" :\""+ChatMain.member.getNick()+"\", ");
-		sb.append("\"email\" :\""+ChatMain.member.getEmail()+"\", ");
-		sb.append("\"img\" :\""+ChatMain.member.getImg()+"\", ");
-		sb.append("\"friends\":[");
-		
-		for(int i=0;i<roommateList.size();i++) {   // 3-1보다 작을때까지  쉼표..
-			Roommate roommate =roommateList.get(i);
-			
-			sb.append("{");
-			sb.append("\"member_idx\":"+roommate.getMember().getMember_idx()+",");
-			sb.append("\"room_idx\":"+roommate.getRoom().getRoom_idx()+",");
-			//sb.append("\"name\":\"zino\"");
-			if(i<(roommateList.size()-1)) {
-				sb.append("},");
-			}else {
-				sb.append("}");
-			}
-		}
-		sb.append("],");
-		
+
 		String str= t_input.getText().replace("\n", "");
 		
-		sb.append("\"contents\" :\""+str+"\" ");
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append("\"requestType\" : \"message\",");
+		sb.append("\"me\": "+ChatMain.member.getMember_idx()+", ");
+		sb.append("\"data\": \""+str+"\"");
 		sb.append("}");
-	
-		System.out.println(sb.toString());
+		
 		
 		cmt.sendMsg(sb.toString());
 		
