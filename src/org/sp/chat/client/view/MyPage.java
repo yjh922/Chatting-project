@@ -4,14 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,22 +14,18 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-
-import javax.swing.JPanel;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
-import org.sp.chat.client.view.popup.LoginForm;
+import org.sp.chat.client.view.popup.LoginPage;
+import org.sp.chat.client.view.popup.PopWin;
 
 import util.DBManager;
 
@@ -64,15 +52,17 @@ public class MyPage extends Page{
 	JButton nick;
 	JButton unregister;
 	JLabel la_icon = new JLabel();
-	LoginForm loginForm;
 	DBManager dbManager;
 	MemberDAO memberDAO;
 	
 	ChatMain chatMain;
+	PopWin popWin;
 	MyPage mypage;
-	public MyPage(ChatMain chatMain) {
+	LoginPage loginPage;
+	public MyPage(ChatMain chatMain, PopWin popWin) {
 		mypage = this;
 		this.chatMain=chatMain;
+		this.popWin=popWin;
 		p_south=new JPanel();
 		la_title =new JLabel("마이페이지");
 		la_logout =new JLabel("로그아웃");
@@ -146,7 +136,7 @@ public class MyPage extends Page{
 					deleteMember();//회원탈퇴
 					System.out.println("회원탈퇴 완료");
 					chatMain.setVisible(false);//현재 메인프레임을 다시 안보이게
-					 chatMain.loginForm.setVisible(true);
+					 loginPage.setVisible(true);
 				}
 			}
 		
@@ -171,7 +161,7 @@ public class MyPage extends Page{
 			la_login.setText("로그아웃");
 			//프레임의 상단 제목에 로그인 한 관리자의 이름 출력 
 			this.setVisible(true);//현재 메인프레임을 안보이게..
-			loginForm.setVisible(false);//로그인폼 다시  안보이게
+			loginPage.setVisible(false);//로그인폼 다시  안보이게
 			
 		}
 		
@@ -184,7 +174,7 @@ public class MyPage extends Page{
 			//loginForm.memeber=null;
 			
 			chatMain.setVisible(false);//현재 메인프레임을 다시 안보이게..
-			 chatMain.loginForm.setVisible(true);
+			loginPage.setVisible(true);
 		}
 		
 

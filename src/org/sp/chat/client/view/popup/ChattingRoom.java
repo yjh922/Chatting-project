@@ -27,7 +27,7 @@ import org.sp.chat.client.view.ChattingPage;
 
 import util.DBManager;
 
-public class ChattingRoom extends PopUp{
+public class ChattingRoom extends PopUP{
 	JPanel p_north;
 	JPanel p_center;
 	JLabel la_title;

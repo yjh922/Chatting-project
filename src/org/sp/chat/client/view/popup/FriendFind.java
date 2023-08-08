@@ -21,7 +21,7 @@ import org.sp.chat.client.view.MemberCell;
 
 import util.DBManager;
 
-public class FriendFind extends PopUp{
+public class FriendFind extends PopUP {
 	JPanel p_north;
 	JPanel p_center;
 	JPanel p_south;

@@ -12,6 +12,7 @@ import org.sp.chat.client.domain.Member;
 
 import util.DBManager;
 
+
 // 오직 member 테이블에 대한 CRUD만을 담당하기 위한 객체
 public class MemberDAO {
 	DBManager dbManager;
@@ -54,6 +55,7 @@ public class MemberDAO {
 		}
 		return (updateCnt > 0);
 	}
+
 	
 	public Member login(Member member) {
 		Connection con = null;
@@ -93,6 +95,7 @@ public class MemberDAO {
 		}
 		return dto;
 	}
+
 
 	
 	public Member select(int member_idx) {
@@ -230,5 +233,6 @@ public class MemberDAO {
 		
 		return result;
 	}
+
 
 }

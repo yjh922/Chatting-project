@@ -18,6 +18,8 @@ import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.model.RoomDAO;
 import org.sp.chat.client.view.popup.FriendFind;
 
+import org.sp.chat.client.view.popup.PopWin;
+
 import util.DBManager;
 import util.ImageUtil;
 
