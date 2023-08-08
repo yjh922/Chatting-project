@@ -100,8 +100,11 @@ public class ChatMain extends JFrame{
 		}
 
 	}
-	public void loginComplete() {
-		pages[MYPAGE].reView();
+	public void repaint() {
+		for(Page page : pages)
+		{
+			page.repaint();
+		}
 	}
 	
 	
