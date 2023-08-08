@@ -61,7 +61,6 @@ public class MemberCell extends JPanel{
 						//등록된 적이 없다면...
 						addFriend() ;//친구로 등록 
 					}
-					
 				}
 			}
 		});

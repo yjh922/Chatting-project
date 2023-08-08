@@ -104,10 +104,10 @@ public class ClientMain extends JFrame{
 				if(key == KeyEvent.VK_ENTER) {//엔터치면..
 					//서버에 메시지 전송
 					send();
-					
 				}
 			}
 		});
+		
 		bt_input.addActionListener((e)->{
 			send();
 			

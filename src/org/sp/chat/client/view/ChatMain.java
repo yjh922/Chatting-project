@@ -46,7 +46,6 @@ public class ChatMain extends JFrame{
 
 	FriendDAO friendDAO;
 	
-
 	public static Member member;
 
 	public ChatMain() {
@@ -55,7 +54,6 @@ public class ChatMain extends JFrame{
 		pages = new Page[3];
 		memberDAO=new MemberDAO(new DBManager());
 
-		
 		//페이지 생성
 		pages[FRIEND] = new FriendPage(this);
 		pages[CHATTING] = new ChattingPage(this);
@@ -67,7 +65,9 @@ public class ChatMain extends JFrame{
 		p_west.setLayout(null);
 		
 		//스타일
-		p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_center.setBackground(new Color(89,185,255));
+		//p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_west.setBackground(new Color(89,185,255));
 		p_west.setPreferredSize(new Dimension(50,600));
 		
 		//조립

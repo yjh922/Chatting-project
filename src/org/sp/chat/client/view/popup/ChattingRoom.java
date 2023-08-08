@@ -43,11 +43,9 @@ public class ChattingRoom extends PopUp{
 	RoommateDAO roommateDAO;
 	ChattingPage chattingPage;
 
-	
 	//셀들을 접근하기 위한 리스트 
 	List<ChattingRoomCell> cellList=new ArrayList<ChattingRoomCell>(); 
 	String roomName;//방이름 이벽받은 값
-	
 	
 	public ChattingRoom(ChattingPage chattingPage) {
 		this.chattingPage=chattingPage;
@@ -66,9 +64,6 @@ public class ChattingRoom extends PopUp{
 		
 		roomDAO=new RoomDAO(dbManager);
 		roommateDAO = new RoommateDAO(dbManager);
-		
-
-		
 		
 		//스타일
 		p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));

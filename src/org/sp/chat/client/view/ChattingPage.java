@@ -92,7 +92,6 @@ public class ChattingPage extends Page{
 			}
 		});
 
-
 	}
 	
 	public int clickChat() {

@@ -56,11 +56,11 @@ public class FriendPage extends Page{
 		
 		p_north.setLayout(null);
 		la_title.setBounds(15, 3, 40, 40);
-		la_plus.setBounds(280, 5, 40, 40);
+		la_plus.setBounds(280, 3, 40, 40);
 		//스타일
-		//p_north.setBackground(Color.yellow);
+		//p_north.setBackground(new Color(89,185,255));
 		p_center.setPreferredSize(new Dimension(310, 600));
-		//p_center.setBackground(Color.red);
+		//p_center.setBackground(Color.white);
 		scroll.setPreferredSize(new Dimension(300,500));
 		la_title.setFont(new Font("휴먼모음T", Font.PLAIN, 20));
 		
