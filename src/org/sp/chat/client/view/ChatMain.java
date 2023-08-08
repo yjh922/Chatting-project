@@ -19,9 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.domain.Member;
+
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.popup.PopWin;
 import org.sp.chat.client.view.popup.PopupPage;
+
+import org.sp.chat.client.model.FriendDAO;
+import org.sp.chat.client.model.MemberDAO;
 
 import util.DBManager;
 
@@ -31,35 +35,42 @@ public class ChatMain extends JFrame{
 	String[] naviIcon= {"res/friend.png","res/chatting.png","res/mypage.png"};
 	ArrayList<JLabel> navi;//아이콘 이미지를 담게 될 라벨들
 	
+
 	public static final int FRIEND=0;//친구 목록
 	public static final int CHATTING=1;//채팅 목록
 	public static final int MYPAGE=2;//마이 페이지
-	
-	Page[] pages;//컨텐츠 페이지
-	
+
 	PopWin popWin;
 
 	MemberDAO memberDAO;
 
-	Member member;
+	public Page[] pages;//컨텐츠 페이지
+
+	DBManager dbManager;
+	FriendDAO friendDAO;
+	
+	public static Member member; //현재 로그인한 사람 
 
 	public ChatMain() {
 		p_center = new JPanel();
 		p_west = new JPanel();
 		pages = new Page[3];
-		memberDAO=new MemberDAO(new DBManager());
-		
+
+		memberDAO=new MemberDAO(dbManager = new DBManager());
+
 		//페이지 생성
 		pages[FRIEND] = new FriendPage(this);
-		pages[CHATTING] = new ChattingPage();
-		pages[MYPAGE] = new MyPage();
+		pages[CHATTING] = new ChattingPage(this);
+		pages[MYPAGE] = new MyPage(this, popWin);
+
+
+		friendDAO=new FriendDAO(new DBManager());
 		
 		p_west.setLayout(null);
 		
 		//스타일
-		p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_west.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		p_west.setPreferredSize(new Dimension(50,600));
-		
 		
 		//조립
 		for(int i=0; i<pages.length; i++) {
@@ -70,14 +81,12 @@ public class ChatMain extends JFrame{
 		add(p_west, BorderLayout.WEST);
 		
 		setSize(380,600);
-		setVisible(true);
+		setVisible(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		//member=memberDAO.login(member);
-		
+
 		//최초로 친구목록 보여지게
-		//showHide(FRIEND);
+		showHide(FRIEND);
 		
 		for(int i=0; i<navi.size();i++) {
 			JLabel obj=navi.get(i);
@@ -92,6 +101,13 @@ public class ChatMain extends JFrame{
 		}
 		
 		popWin = new PopWin(this);
+
+	}
+	public void repaint() {
+		for(Page page : pages)
+		{
+			page.repaint();
+		}
 	}
 	
 	public void createNavi() {
@@ -115,17 +131,20 @@ public class ChatMain extends JFrame{
 		}
 	}
 	
+	
 	public void showHide(int n) {//보이게하고 싶은 index만 넘겨받는다
 		for(int i=0; i<pages.length;i++) {
 			if(i==n) {//넘겨받은 매개변수와 i가 일치할때만 보이게
 				pages[i].setVisible(true);//보이게 처리
-				
 			}else {
 				pages[i].setVisible(false);//안보이게 처리
 			}
 		}
 	}
+
 	
+
+
 	public static void main(String[] args) {
 		new ChatMain();
 	}

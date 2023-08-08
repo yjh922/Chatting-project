@@ -5,7 +5,9 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -13,11 +15,17 @@ import javax.swing.JTextField;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.ChatMain;
+import org.sp.chat.client.view.ChattingPage;
+import org.sp.chat.client.view.FriendPage;
 
 import util.DBManager;
+import util.ImageUtil;
+
+
 
 public class LoginPage extends PopupPage {
-	
+
+
 	ChatMain chatMain;
 	JTextField t_id;
 	JPasswordField t_pass;
@@ -28,6 +36,9 @@ public class LoginPage extends PopupPage {
 	// DAO를 이용하여 db관련 업
 	MemberDAO memberDAO;
 	Member member;
+
+	JLabel la_icon;
+
 	
 	public LoginPage(PopWin popWin,ChatMain chatMain) {
 		super(popWin);
@@ -35,10 +46,18 @@ public class LoginPage extends PopupPage {
 		
 		t_id = new JTextField();
 		t_pass = new JPasswordField();
+
 		bt_login = new JButton("로그인");
 		bt_join = new JButton("가입");
 		dbManager = new DBManager();
 		memberDAO = new MemberDAO(dbManager);
+
+		bt_login = new JButton("Login");
+		bt_join = new JButton("Join");
+		dbManager = new DBManager();
+		memberDAO = new MemberDAO(dbManager);
+		la_icon=new JLabel(new ImageIcon(ImageUtil.getImage("Logoo.png", 300, 300)));
+
 		
 		// 스타일
 		setPreferredSize(new Dimension(380, 600));
@@ -49,6 +68,7 @@ public class LoginPage extends PopupPage {
 		
 		
 		// 조립
+		add(la_icon);
 		add(t_id);
 		add(t_pass);
 		add(bt_login);
@@ -61,6 +81,7 @@ public class LoginPage extends PopupPage {
 		bt_login.addActionListener((e) -> {
 			loginCheck();
 		});
+
 		
 		// 회원가입 들었을때
 		bt_join.addMouseListener(new MouseAdapter() {
@@ -68,6 +89,9 @@ public class LoginPage extends PopupPage {
 				popWin.showHide(PopWin.JOINPAGE);
 			}
 		});
+
+		setVisible(true);
+
 	}
 
 	// 로그인이 성공되면, 관리자 메인 프레임 보이게 처리
@@ -88,12 +112,28 @@ public class LoginPage extends PopupPage {
 			JOptionPane.showConfirmDialog(this, "로그인 정보가 올바르지 않습니다");
 		} else { // 로그인 성공
 			JOptionPane.showConfirmDialog(this, "로그인 성공");
-			
+
+			//로그인 성공시 회원의 정보를 보관해둔다 
+			chatMain.member=memberDTO;
+
 			// 메인 프레임 보여지게..
 			chatMain.setVisible(true);
 			chatMain.setTitle(member.getId()+"로그인 중");
+
 			
 			//this.setVisible(false);// 나는 안 보이게..
+
+			FriendPage friendPage=(FriendPage)chatMain.pages[ChatMain.FRIEND];
+			friendPage.showFriendList();
+			ChattingPage chattingPage=(ChattingPage)chatMain.pages[ChatMain.CHATTING];
+			chattingPage.showRoomList();
+			chatMain.repaint();
+
+			this.setVisible(false);// 나는 안 보이게..
+			
 		}
+	
 	}
+	
+	
 }

@@ -30,7 +30,7 @@ start with 1;
 insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'btob', '1111', '비투비', '비투', 'abc@naver.com');
 insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'bts', '2222', '비티에스', '방탄', 'def@naver.com');
 insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'exo', '3333', '엑소', '엑소', 'ghi@naver.com');
-
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'a', '4444', '에이', '에이', 'a@naver.com');
 
 친구 테이블
 
@@ -103,5 +103,15 @@ constraint fk_roommate_message references roommate(roommate_idx);
 
 commit;
 
+select id from member where id like '%b%'
+insert into friend(friend_idx, me, you) values(seq_friend.nextval, 1,2);
 
+commit;
+
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'infinite', '4444', '인피니트', '인슾', 'jkl@naver.com');
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, '하이라이트', '5555', '하이라이트', '하이', 'b@naver.com');
+insert into member(member_idx, id, pass, name, nick, email) values(seq_member.nextval, 'lauv', '6666', '라우브', '라우', 'u@naver.com');
+
+
+commit;
 

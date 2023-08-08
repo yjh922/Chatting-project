@@ -1,7 +1,5 @@
 package org.sp.chat.client.view.popup;
 
-import java.awt.Color;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,7 +9,7 @@ public class PopWin extends JFrame{
 	ChatMain chatMain;
 	JPanel p_center; //페이지들이 교체될 공백영역
 	
-	PopupPage[] pages;
+	public PopupPage[] pages;
 	public static final int LOGINPAGE=0;
 	public static final int JOINPAGE=1;
 	
@@ -37,7 +35,7 @@ public class PopWin extends JFrame{
 	public void createPage() {
 		pages = new PopupPage[2]; //배열준비
 		
-		pages[0] = new LoginPage(this, null);
+		pages[0] = new LoginPage(this, chatMain);
 		pages[1] = new JoinPage(this, null);
 		
 		for(int i=0;i<pages.length;i++) {

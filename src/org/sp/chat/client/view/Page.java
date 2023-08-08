@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.view.popup.PopWin;
 
-public class Page extends JPanel{
+class Page extends JPanel{
 	JPanel p_north;
 	JPanel p_center;
 
@@ -24,11 +24,10 @@ public class Page extends JPanel{
 		p_center=new JPanel();
 
 		//스타일
-		
 		p_north.setPreferredSize(new Dimension(330,50));		
-		p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
+		//p_north.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 
-		
+
 		//조립	
 		setLayout(new BorderLayout());
 		
@@ -37,7 +36,11 @@ public class Page extends JPanel{
 		
 		setPreferredSize(new Dimension(330, 550));
 		setVisible(true);
-		
 
 	}
+	
+	public void repaint() {
+		
+	}
+	
 }
