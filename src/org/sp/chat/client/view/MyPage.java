@@ -48,7 +48,6 @@ public class MyPage extends Page{
 	JLabel la_logout;
 
 	JButton bt_file;
-	JPanel p_preview;
 	JButton bt_regist; //수정버튼(등록)
 	JPanel p_content;
 	
@@ -70,7 +69,9 @@ public class MyPage extends Page{
 	MemberDAO memberDAO;
 	
 	ChatMain chatMain;
+	MyPage mypage;
 	public MyPage(ChatMain chatMain) {
+		mypage = this;
 		this.chatMain=chatMain;
 		p_south=new JPanel();
 		la_title =new JLabel("마이페이지");
@@ -125,11 +126,12 @@ public class MyPage extends Page{
 		p_south.add(unregister);
 
 		
+		
 		bt_profile.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				// 프로필 편집 버튼 클릭 시 profile 연결
-				Profile profile = new Profile();
+				Profile profile = new Profile(mypage);
 				profile.setVisible(true);
 			
 			}
@@ -188,10 +190,10 @@ public class MyPage extends Page{
 
 	
 	// 화면을 다시 구성하기
-	public void reView() {
-		System.out.println("동작여부");
+	public void repaint() {
+		//System.out.println("동작여부");
 		if(ChatMain.member == null) {
-			System.out.println("null 값?");
+			//System.out.println("null 값?");
 			return ;
 		}
 		
@@ -208,7 +210,7 @@ public class MyPage extends Page{
 		
 	private ImageIcon getIcon(String imageSrc) {
 		URL url=ClassLoader.getSystemResource(imageSrc);
-		
+			//System.out.println(imageSrc);
 		try {
 			BufferedImage buffImg = ImageIO.read(url);
 			Image image=buffImg;
