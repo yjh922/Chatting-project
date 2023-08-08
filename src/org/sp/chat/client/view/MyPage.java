@@ -182,9 +182,9 @@ public class MyPage extends Page{
 	
 	// 화면을 다시 구성하기
 	public void repaint() {
-		System.out.println("동작여부");
+		//System.out.println("동작여부");
 		if(ChatMain.member == null) {
-			System.out.println("null 값?");
+			//System.out.println("null 값?");
 			return ;
 		}
 		
@@ -201,7 +201,7 @@ public class MyPage extends Page{
 		
 	private ImageIcon getIcon(String imageSrc) {
 		URL url=ClassLoader.getSystemResource(imageSrc);
-		
+			//System.out.println(imageSrc);
 		try {
 			BufferedImage buffImg = ImageIO.read(url);
 			Image image=buffImg;

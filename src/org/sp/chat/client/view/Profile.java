@@ -47,7 +47,7 @@ public class Profile extends JFrame{
 		bt_cancel = new JButton("취소");
 		bt_photo=new JButton("사진찾기");
 		t_name= new JTextField(20);
-		chooser = new JFileChooser("C:/javase_work/Chatting-project/src/res");
+		chooser = new JFileChooser("D:/javase_workspace/Chatting-project/src/res");
 
 		//조립
 		imgprofile();
@@ -95,6 +95,8 @@ public class Profile extends JFrame{
 					dao.changeProfile(ChatMain.member);
 					
 					JOptionPane.showMessageDialog(Profile.this, "수정되었습니다.");
+					// 수정 버튼을 클릭하면 창을 닫기
+			        dispose();
 				}
 			}
 		});
