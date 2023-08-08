@@ -55,9 +55,7 @@ public class RoommateDAO {
 		
 		con = dbManager.connect();
 		
-		StringBuilder sb = new StringBuilder();
-		
-		String sql="select member_idx from roommate where room_idx=?";
+		String sql="select * from roommate where room_idx=?";
 		
 		try {
 			pstmt = con.prepareStatement(sql);

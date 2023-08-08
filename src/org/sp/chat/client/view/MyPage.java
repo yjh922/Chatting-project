@@ -36,7 +36,10 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import org.sp.chat.client.domain.Member;
+import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.popup.LoginForm;
+
+import util.DBManager;
 
 
 
@@ -62,6 +65,8 @@ public class MyPage extends Page{
 	JButton unregister;
 	JLabel la_icon = new JLabel();
 	LoginForm loginForm;
+	DBManager dbManager;
+	MemberDAO memberDAO;
 	
 	ChatMain chatMain;
 	MyPage mypage;
@@ -79,6 +84,8 @@ public class MyPage extends Page{
 		t_name = new JTextField("닉네임이름");
 		nick =new JButton("");
 		unregister=new JButton("회원탈퇴");
+		dbManager = new DBManager();
+		memberDAO = new MemberDAO(dbManager);
 
 
 		
@@ -136,6 +143,8 @@ public class MyPage extends Page{
 				int result=JOptionPane.showConfirmDialog(null, "정말 탈퇴하시겠습니까?","회원탈퇴",JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
 				if(result==JOptionPane.OK_OPTION) {
 					JOptionPane.showMessageDialog(MyPage.this, "탈퇴완료 이용해주셔서 감사합니다");
+					deleteMember();//회원탈퇴
+					System.out.println("회원탈퇴 완료");
 					chatMain.setVisible(false);//현재 메인프레임을 다시 안보이게
 					 chatMain.loginForm.setVisible(true);
 				}
@@ -219,6 +228,11 @@ public class MyPage extends Page{
 			la_icon = new JLabel(getIcon(imgprofile));
 			p_south.add(la_icon);
 
+	}
+	
+	//회원 탈퇴 메서드
+	public void deleteMember() {
+		int result=memberDAO.delete(chatMain.member.getMember_idx());
 	}
 	
 }
