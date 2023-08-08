@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 //접속하고 접속 해제하는 공통코드
 public class DBManager {
-	String url="jdbc:oracle:thin:@localhost:1521:XE";
+	String url="jdbc:oracle:thin:@192.168.1.37:1521:XE";
 	String user="chat";
 	String password="7777";
 	
