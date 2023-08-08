@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -23,6 +24,7 @@ public class ServerMessageThread extends Thread{
 	BufferedWriter buffw;
 	boolean flag=true;
 	JSONParser jsonParser;
+	List roommateList = new ArrayList();
 	
 	public ServerMessageThread(GUIServer guiServer, Socket socket) {
 		this.guiServer=guiServer;
@@ -53,15 +55,38 @@ public class ServerMessageThread extends Thread{
 				JSONArray jsonArray=(JSONArray)obj.get("friends");
 				System.out.println("친구 수는 "+jsonArray.size());
 				
+				//방번호 구하기
+				JSONObject room=(JSONObject)jsonArray.get(0);
+				Long room_idx =(Long)room.get("room_idx");
+				roommateList.add(room_idx);
+				
+				//참여 친구 구하기
+				for(int i=0; i<jsonArray.size(); i++) {
+					
+					JSONObject friends=(JSONObject)jsonArray.get(i);
+
+					Long member_idx=(Long)friends.get("member_idx");
+				}
+				
+				System.out.println(roommateList);
+			
+				
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+
+				for(int i=0;i<guiServer.vec.size();i++) {
+					
+					ServerMessageThread smt=guiServer.vec.get(i);
+					smt.sendMsg(msg);//클라이언트에 보내기
+				}
 			
 			
 			for(int i=0;i<guiServer.vec.size();i++) {
 				ServerMessageThread smt=guiServer.vec.get(i);
 				smt.sendMsg(msg);//클라이언트에 보내기
 			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

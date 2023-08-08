@@ -29,7 +29,6 @@ public class GUIServer extends JFrame{
 	ServerSocket server;
 	Vector<ServerMessageThread> vec;
 	
-	
 	public GUIServer() {
 		p_north = new JPanel();
 		p_center= new JPanel();
@@ -59,6 +58,7 @@ public class GUIServer extends JFrame{
 			};
 			acceptThread.start();//쓰레드 시작하기
 			bt_server.setEnabled(false);//버튼을 중복해서 못누르게 처리
+			area.setText("서버가 가동되었습니다.\n");
 		});
 		
 	}

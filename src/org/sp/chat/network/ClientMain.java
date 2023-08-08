@@ -43,6 +43,7 @@ public class ClientMain extends JFrame{
 	Room room;
 	DBManager dbManager;
 	RoommateDAO roommateDAO;
+	Roommate roommate;
 	List<Roommate> roommateList=new ArrayList<Roommate>();
 	
 	public ClientMain(Room room) {
@@ -62,11 +63,12 @@ public class ClientMain extends JFrame{
 		dbManager = new DBManager();
 		roommateDAO = new RoommateDAO(dbManager);
 		
-		box.addItem("192.168.0.14");
 		box.addItem("192.168.1.37");
+		box.addItem("192.168.0.14");
 		box.addItem("192.168.1.220");
 		box.addItem("192.168.1.224");
 		box.addItem("192.168.1.229");
+		box.addItem("192.168.0.2");
 
 		//스타일
 		p_north.setPreferredSize(new Dimension(380,50));
@@ -151,11 +153,14 @@ public class ClientMain extends JFrame{
 		sb.append("\"img\" :\""+ChatMain.member.getImg()+"\", ");
 		sb.append("\"friends\":[");
 		
-		for(int i=0;i<3;i++) {   // 3-1보다 작을때까지  쉼표..
+		for(int i=0;i<roommateList.size();i++) {   // 3-1보다 작을때까지  쉼표..
+			Roommate roommate =roommateList.get(i);
+			
 			sb.append("{");
-			sb.append("\"member_idx\":"+i+",");
-			sb.append("\"name\":\"zino\"");
-			if(i<(3-1)) {
+			sb.append("\"member_idx\":"+roommate.getMember().getMember_idx()+",");
+			sb.append("\"room_idx\":"+roommate.getRoom().getRoom_idx()+",");
+			//sb.append("\"name\":\"zino\"");
+			if(i<(roommateList.size()-1)) {
 				sb.append("},");
 			}else {
 				sb.append("}");
@@ -163,7 +168,7 @@ public class ClientMain extends JFrame{
 		}
 		sb.append("],");
 		
-		String str= t_input.getText().replace("\n", "한");
+		String str= t_input.getText().replace("\n", "");
 		
 		sb.append("\"contents\" :\""+str+"\" ");
 		sb.append("}");
