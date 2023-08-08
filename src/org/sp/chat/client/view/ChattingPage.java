@@ -75,6 +75,7 @@ public class ChattingPage extends Page{
 				chattingRoom = new ChattingRoom(ChattingPage.this);
 			}
 		});
+
 	}
 	
 	public void showRoomList() {

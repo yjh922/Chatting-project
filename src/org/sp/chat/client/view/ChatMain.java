@@ -47,13 +47,13 @@ public class ChatMain extends JFrame{
 
 	public static Member member; //현재 로그인한 사람 
 
+
 	public ChatMain() {
 		p_center = new JPanel();
 		p_west = new JPanel();
 		pages = new Page[3];
 		memberDAO=new MemberDAO(dbManager = new DBManager());
 
-		
 		//페이지 생성
 		pages[FRIEND] = new FriendPage(this);
 		pages[CHATTING] = new ChattingPage(this);
