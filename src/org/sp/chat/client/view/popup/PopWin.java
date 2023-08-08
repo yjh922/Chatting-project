@@ -18,7 +18,7 @@ public class PopWin extends JFrame{
 	public PopWin(ChatMain chatMain) {
 		this.chatMain=chatMain;
 		p_center = new JPanel();
-		p_center.setBackground(Color.YELLOW);
+		//p_center.setBackground(Color.YELLOW);
 				
 		createPage();//페이지 생성
 		
@@ -54,9 +54,5 @@ public class PopWin extends JFrame{
 				pages[i].setVisible(false);				
 			}
 		}
-	}
-	
-	public static void main(String[] args) {
-		new PopWin(null);
 	}
 }

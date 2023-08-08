@@ -29,8 +29,6 @@ public class LoginPage extends PopupPage {
 	MemberDAO memberDAO;
 	Member member;
 	
-	//private Image background=new ImageIcon(LoginForm.class.getResource("../res/Logoo.png")).getImage();//배경이미지
-	
 	public LoginPage(PopWin popWin,ChatMain chatMain) {
 		super(popWin);
 		this.chatMain = chatMain; // 메인 프레임 넘겨받기
@@ -71,13 +69,6 @@ public class LoginPage extends PopupPage {
 			}
 		});
 	}
-
-	
-	/*
-	public void paint(Graphics g) {//그리는 함수
-		g.drawImage(background, 0, 0, null);//background를 그려줌
-	}
-	*/
 
 	// 로그인이 성공되면, 관리자 메인 프레임 보이게 처리
 	public void loginCheck() {

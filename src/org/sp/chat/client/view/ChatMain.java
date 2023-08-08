@@ -21,6 +21,7 @@ import javax.swing.border.LineBorder;
 import org.sp.chat.client.domain.Member;
 import org.sp.chat.client.model.MemberDAO;
 import org.sp.chat.client.view.popup.PopWin;
+import org.sp.chat.client.view.popup.PopupPage;
 
 import util.DBManager;
 
@@ -35,10 +36,6 @@ public class ChatMain extends JFrame{
 	public static final int MYPAGE=2;//마이 페이지
 	
 	Page[] pages;//컨텐츠 페이지
-
-	//LoginPage loginForm;
-	
-	//JoinForm joinForm;
 	
 	PopWin popWin;
 
@@ -51,8 +48,6 @@ public class ChatMain extends JFrame{
 		p_west = new JPanel();
 		pages = new Page[3];
 		memberDAO=new MemberDAO(new DBManager());
-		
-		popWin = new PopWin(this);
 		
 		//페이지 생성
 		pages[FRIEND] = new FriendPage(this);
@@ -79,9 +74,6 @@ public class ChatMain extends JFrame{
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		//loginForm = new LoginPage(this);
-		//joinForm = new JoinForm(this);
-		
 		//member=memberDAO.login(member);
 		
 		//최초로 친구목록 보여지게
@@ -98,6 +90,8 @@ public class ChatMain extends JFrame{
 				}
 			});
 		}
+		
+		popWin = new PopWin(this);
 	}
 	
 	public void createNavi() {

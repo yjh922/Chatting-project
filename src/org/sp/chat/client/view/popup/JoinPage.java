@@ -101,7 +101,7 @@ public class JoinPage  extends PopupPage{
 		if(result >= 0) {
 			// 이메일발송
 			
-			boolean flag = mailSender.send("jihyun961029@gmail.com", "가입축하", member.getName() + "가입을 진심으로 축하드려요");
+			boolean flag = mailSender.send("jihyun961029@gmail.com", "가입축하", member.getName() + " 가입을 진심으로 축하드려요");
 			if(flag) {
 				JOptionPane.showMessageDialog(this, "가입성공");
 			}
